@@ -1,0 +1,12 @@
+[
+  {
+    "username": "yonetici",
+    "password": "admin123",
+    "role": "admin"
+  },
+  {
+    "username": "verigirici1",
+    "password": "user123",
+    "role": "data_entry"
+  }
+]

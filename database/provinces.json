@@ -1,0 +1,2432 @@
+[
+  {
+    "id": "adana",
+    "ad": "Adana",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 3,
+      "universite_ogrenci_sayisi": 70000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 8
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.8,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 5,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 180,
+      "startup_sayisi": 60,
+      "ihracat_hacmi_milyon_usd": 2500
+    },
+    "demografi": {
+      "toplam_nufus": 2274108,
+      "nufus_artis_hizi": 0.5,
+      "ortalama_hane_geliri": 90000
+    }
+  },
+  {
+    "id": "adiyaman",
+    "ad": "Adıyaman",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 20000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 3,
+      "yabanci_dil_orani": 3
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2.1,
+      "yesil_alan_orani": 4
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 5,
+      "ortalama_metrekare_kira": 90,
+      "startup_sayisi": 10,
+      "ihracat_hacmi_milyon_usd": 150
+    },
+    "demografi": {
+      "toplam_nufus": 632148,
+      "nufus_artis_hizi": -0.4,
+      "ortalama_hane_geliri": 65000
+    }
+  },
+  {
+    "id": "afyon",
+    "ad": "Afyonkarahisar",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 40000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.5,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 4,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 110,
+      "startup_sayisi": 15,
+      "ihracat_hacmi_milyon_usd": 400
+    },
+    "demografi": {
+      "toplam_nufus": 747555,
+      "nufus_artis_hizi": 0.4,
+      "ortalama_hane_geliri": 75000
+    }
+  },
+  {
+    "id": "agri",
+    "ad": "Ağrı",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 15000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 1,
+      "yabanci_dil_orani": 2
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 4,
+      "hastane_yatak_kapasitesi": 1.8,
+      "yesil_alan_orani": 3
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 70,
+      "startup_sayisi": 5,
+      "ihracat_hacmi_milyon_usd": 20
+    },
+    "demografi": {
+      "toplam_nufus": 510626,
+      "nufus_artis_hizi": -0.5,
+      "ortalama_hane_geliri": 55000
+    }
+  },
+  {
+    "id": "aksaray",
+    "ad": "Aksaray",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 25000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 4
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.2,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 95,
+      "startup_sayisi": 8,
+      "ihracat_hacmi_milyon_usd": 120
+    },
+    "demografi": {
+      "toplam_nufus": 433055,
+      "nufus_artis_hizi": 0.8,
+      "ortalama_hane_geliri": 70000
+    }
+  },
+  {
+    "id": "amasya",
+    "ad": "Amasya",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 20000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 5,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.4,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 100,
+      "startup_sayisi": 10,
+      "ihracat_hacmi_milyon_usd": 80
+    },
+    "demografi": {
+      "toplam_nufus": 338267,
+      "nufus_artis_hizi": 0.1,
+      "ortalama_hane_geliri": 72000
+    }
+  },
+  {
+    "id": "ankara",
+    "ad": "Ankara",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 10,
+      "universite_ogrenci_sayisi": 300000,
+      "teknopark_sayisi": 9,
+      "beyin_gocu_endeksi": 9,
+      "yabanci_dil_orani": 30
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 9,
+      "hastane_yatak_kapasitesi": 3.5,
+      "yesil_alan_orani": 15
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 12,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 250,
+      "startup_sayisi": 1500,
+      "ihracat_hacmi_milyon_usd": 9000
+    },
+    "demografi": {
+      "toplam_nufus": 5782285,
+      "nufus_artis_hizi": 1.1,
+      "ortalama_hane_geliri": 120000
+    }
+  },
+  {
+    "id": "antalya",
+    "ad": "Antalya",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 75000,
+      "teknopark_sayisi": 2,
+      "beyin_gocu_endeksi": 8,
+      "yabanci_dil_orani": 25
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.9,
+      "yesil_alan_orani": 18
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 280,
+      "startup_sayisi": 200,
+      "ihracat_hacmi_milyon_usd": 2000
+    },
+    "demografi": {
+      "toplam_nufus": 2688004,
+      "nufus_artis_hizi": 2.5,
+      "ortalama_hane_geliri": 95000
+    }
+  },
+  {
+    "id": "ardahan",
+    "ad": "Ardahan",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 5000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 1,
+      "yabanci_dil_orani": 2
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 4,
+      "hastane_yatak_kapasitesi": 1.9,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 60,
+      "startup_sayisi": 1,
+      "ihracat_hacmi_milyon_usd": 5
+    },
+    "demografi": {
+      "toplam_nufus": 92481,
+      "nufus_artis_hizi": -1.5,
+      "ortalama_hane_geliri": 60000
+    }
+  },
+  {
+    "id": "artvin",
+    "ad": "Artvin",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 8000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 2,
+      "yabanci_dil_orani": 4
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 3,
+      "hastane_yatak_kapasitesi": 2.2,
+      "yesil_alan_orani": 10
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 80,
+      "startup_sayisi": 2,
+      "ihracat_hacmi_milyon_usd": 15
+    },
+    "demografi": {
+      "toplam_nufus": 169403,
+      "nufus_artis_hizi": -0.1,
+      "ortalama_hane_geliri": 68000
+    }
+  },
+  {
+    "id": "aydin",
+    "ad": "Aydın",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 55000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 12
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.6,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 4,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 150,
+      "startup_sayisi": 40,
+      "ihracat_hacmi_milyon_usd": 900
+    },
+    "demografi": {
+      "toplam_nufus": 1148241,
+      "nufus_artis_hizi": 1.2,
+      "ortalama_hane_geliri": 85000
+    }
+  },
+  {
+    "id": "balikesir",
+    "ad": "Balıkesir",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 50000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 10
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.7,
+      "yesil_alan_orani": 9
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 5,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 140,
+      "startup_sayisi": 50,
+      "ihracat_hacmi_milyon_usd": 1000
+    },
+    "demografi": {
+      "toplam_nufus": 1256345,
+      "nufus_artis_hizi": 0.7,
+      "ortalama_hane_geliri": 88000
+    }
+  },
+  {
+    "id": "bartin",
+    "ad": "Bartın",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 12000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 7
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.3,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 100,
+      "startup_sayisi": 5,
+      "ihracat_hacmi_milyon_usd": 50
+    },
+    "demografi": {
+      "toplam_nufus": 203351,
+      "nufus_artis_hizi": 0.3,
+      "ortalama_hane_geliri": 75000
+    }
+  },
+  {
+    "id": "batman",
+    "ad": "Batman",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 15000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 3,
+      "yabanci_dil_orani": 4
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2,
+      "yesil_alan_orani": 3
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 85,
+      "startup_sayisi": 8,
+      "ihracat_hacmi_milyon_usd": 70
+    },
+    "demografi": {
+      "toplam_nufus": 634491,
+      "nufus_artis_hizi": 1,
+      "ortalama_hane_geliri": 62000
+    }
+  },
+  {
+    "id": "bayburt",
+    "ad": "Bayburt",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 8000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 2,
+      "yabanci_dil_orani": 3
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2.1,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 5,
+      "ortalama_metrekare_kira": 75,
+      "startup_sayisi": 1,
+      "ihracat_hacmi_milyon_usd": 10
+    },
+    "demografi": {
+      "toplam_nufus": 84241,
+      "nufus_artis_hizi": -0.8,
+      "ortalama_hane_geliri": 65000
+    }
+  },
+  {
+    "id": "bilecik",
+    "ad": "Bilecik",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 20000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 5,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.4,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 120,
+      "startup_sayisi": 10,
+      "ihracat_hacmi_milyon_usd": 200
+    },
+    "demografi": {
+      "toplam_nufus": 228673,
+      "nufus_artis_hizi": 0.2,
+      "ortalama_hane_geliri": 80000
+    }
+  },
+  {
+    "id": "bingol",
+    "ad": "Bingöl",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 15000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 2,
+      "yabanci_dil_orani": 2
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 4,
+      "hastane_yatak_kapasitesi": 1.9,
+      "yesil_alan_orani": 4
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 70,
+      "startup_sayisi": 3,
+      "ihracat_hacmi_milyon_usd": 12
+    },
+    "demografi": {
+      "toplam_nufus": 282556,
+      "nufus_artis_hizi": -0.2,
+      "ortalama_hane_geliri": 60000
+    }
+  },
+  {
+    "id": "bitlis",
+    "ad": "Bitlis",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 10000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 1,
+      "yabanci_dil_orani": 2
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 3,
+      "hastane_yatak_kapasitesi": 1.7,
+      "yesil_alan_orani": 3
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 65,
+      "startup_sayisi": 2,
+      "ihracat_hacmi_milyon_usd": 8
+    },
+    "demografi": {
+      "toplam_nufus": 353988,
+      "nufus_artis_hizi": 0.5,
+      "ortalama_hane_geliri": 58000
+    }
+  },
+  {
+    "id": "bolu",
+    "ad": "Bolu",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 30000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 9
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 9,
+      "hastane_yatak_kapasitesi": 2.8,
+      "yesil_alan_orani": 20
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 130,
+      "startup_sayisi": 25,
+      "ihracat_hacmi_milyon_usd": 250
+    },
+    "demografi": {
+      "toplam_nufus": 320824,
+      "nufus_artis_hizi": 0.9,
+      "ortalama_hane_geliri": 82000
+    }
+  },
+  {
+    "id": "burdur",
+    "ad": "Burdur",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 28000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 5,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.5,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 100,
+      "startup_sayisi": 10,
+      "ihracat_hacmi_milyon_usd": 100
+    },
+    "demografi": {
+      "toplam_nufus": 273799,
+      "nufus_artis_hizi": 0.3,
+      "ortalama_hane_geliri": 78000
+    }
+  },
+  {
+    "id": "bursa",
+    "ad": "Bursa",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 4,
+      "universite_ogrenci_sayisi": 150000,
+      "teknopark_sayisi": 3,
+      "beyin_gocu_endeksi": 8,
+      "yabanci_dil_orani": 18
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 9,
+      "hastane_yatak_kapasitesi": 3.1,
+      "yesil_alan_orani": 12
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 18,
+      "tesvik_derecesi": 1,
+      "ortalama_metrekare_kira": 220,
+      "startup_sayisi": 400,
+      "ihracat_hacmi_milyon_usd": 16000
+    },
+    "demografi": {
+      "toplam_nufus": 3194720,
+      "nufus_artis_hizi": 1.5,
+      "ortalama_hane_geliri": 110000
+    }
+  },
+  {
+    "id": "canakkale",
+    "ad": "Çanakkale",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 45000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 7,
+      "yabanci_dil_orani": 15
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.6,
+      "yesil_alan_orani": 10
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 160,
+      "startup_sayisi": 30,
+      "ihracat_hacmi_milyon_usd": 500
+    },
+    "demografi": {
+      "toplam_nufus": 559383,
+      "nufus_artis_hizi": 0.6,
+      "ortalama_hane_geliri": 90000
+    }
+  },
+  {
+    "id": "cankiri",
+    "ad": "Çankırı",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 10000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 3,
+      "yabanci_dil_orani": 4
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 80,
+      "startup_sayisi": 4,
+      "ihracat_hacmi_milyon_usd": 40
+    },
+    "demografi": {
+      "toplam_nufus": 195766,
+      "nufus_artis_hizi": -0.4,
+      "ortalama_hane_geliri": 69000
+    }
+  },
+  {
+    "id": "corum",
+    "ad": "Çorum",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 20000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.3,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 90,
+      "startup_sayisi": 12,
+      "ihracat_hacmi_milyon_usd": 150
+    },
+    "demografi": {
+      "toplam_nufus": 524130,
+      "nufus_artis_hizi": -0.4,
+      "ortalama_hane_geliri": 70000
+    }
+  },
+  {
+    "id": "denizli",
+    "ad": "Denizli",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 50000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 10
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.7,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 4,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 140,
+      "startup_sayisi": 70,
+      "ihracat_hacmi_milyon_usd": 3500
+    },
+    "demografi": {
+      "toplam_nufus": 1056332,
+      "nufus_artis_hizi": 0.9,
+      "ortalama_hane_geliri": 86000
+    }
+  },
+  {
+    "id": "diyarbakir",
+    "ad": "Diyarbakır",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 40000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 3,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2.1,
+      "yesil_alan_orani": 4
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 100,
+      "startup_sayisi": 20,
+      "ihracat_hacmi_milyon_usd": 300
+    },
+    "demografi": {
+      "toplam_nufus": 1804880,
+      "nufus_artis_hizi": 1.2,
+      "ortalama_hane_geliri": 64000
+    }
+  },
+  {
+    "id": "duzce",
+    "ad": "Düzce",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 25000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 5,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.4,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 110,
+      "startup_sayisi": 15,
+      "ihracat_hacmi_milyon_usd": 200
+    },
+    "demografi": {
+      "toplam_nufus": 405131,
+      "nufus_artis_hizi": 1,
+      "ortalama_hane_geliri": 79000
+    }
+  },
+  {
+    "id": "edirne",
+    "ad": "Edirne",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 48000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 12
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.8,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 130,
+      "startup_sayisi": 20,
+      "ihracat_hacmi_milyon_usd": 150
+    },
+    "demografi": {
+      "toplam_nufus": 414714,
+      "nufus_artis_hizi": 0.6,
+      "ortalama_hane_geliri": 85000
+    }
+  },
+  {
+    "id": "elazig",
+    "ad": "Elazığ",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 40000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.6,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 5,
+      "ortalama_metrekare_kira": 90,
+      "startup_sayisi": 18,
+      "ihracat_hacmi_milyon_usd": 350
+    },
+    "demografi": {
+      "toplam_nufus": 591497,
+      "nufus_artis_hizi": 0.3,
+      "ortalama_hane_geliri": 71000
+    }
+  },
+  {
+    "id": "erzincan",
+    "ad": "Erzincan",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 22000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 3,
+      "yabanci_dil_orani": 4
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2.3,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 5,
+      "ortalama_metrekare_kira": 80,
+      "startup_sayisi": 7,
+      "ihracat_hacmi_milyon_usd": 50
+    },
+    "demografi": {
+      "toplam_nufus": 239223,
+      "nufus_artis_hizi": 0.8,
+      "ortalama_hane_geliri": 68000
+    }
+  },
+  {
+    "id": "erzurum",
+    "ad": "Erzurum",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 70000,
+      "teknopark_sayisi": 2,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.9,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 85,
+      "startup_sayisi": 25,
+      "ihracat_hacmi_milyon_usd": 200
+    },
+    "demografi": {
+      "toplam_nufus": 749754,
+      "nufus_artis_hizi": -0.9,
+      "ortalama_hane_geliri": 67000
+    }
+  },
+  {
+    "id": "eskisehir",
+    "ad": "Eskişehir",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 3,
+      "universite_ogrenci_sayisi": 80000,
+      "teknopark_sayisi": 2,
+      "beyin_gocu_endeksi": 8,
+      "yabanci_dil_orani": 20
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 9,
+      "hastane_yatak_kapasitesi": 3,
+      "yesil_alan_orani": 14
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 4,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 160,
+      "startup_sayisi": 150,
+      "ihracat_hacmi_milyon_usd": 1200
+    },
+    "demografi": {
+      "toplam_nufus": 906617,
+      "nufus_artis_hizi": 1,
+      "ortalama_hane_geliri": 92000
+    }
+  },
+  {
+    "id": "gaziantep",
+    "ad": "Gaziantep",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 65000,
+      "teknopark_sayisi": 2,
+      "beyin_gocu_endeksi": 7,
+      "yabanci_dil_orani": 10
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.5,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 5,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 150,
+      "startup_sayisi": 120,
+      "ihracat_hacmi_milyon_usd": 10000
+    },
+    "demografi": {
+      "toplam_nufus": 2154051,
+      "nufus_artis_hizi": 1.1,
+      "ortalama_hane_geliri": 78000
+    }
+  },
+  {
+    "id": "giresun",
+    "ad": "Giresun",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 25000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2.3,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 90,
+      "startup_sayisi": 8,
+      "ihracat_hacmi_milyon_usd": 250
+    },
+    "demografi": {
+      "toplam_nufus": 450806,
+      "nufus_artis_hizi": -0.5,
+      "ortalama_hane_geliri": 73000
+    }
+  },
+  {
+    "id": "gumushane",
+    "ad": "Gümüşhane",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 10000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 2,
+      "yabanci_dil_orani": 3
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 5,
+      "ortalama_metrekare_kira": 70,
+      "startup_sayisi": 2,
+      "ihracat_hacmi_milyon_usd": 15
+    },
+    "demografi": {
+      "toplam_nufus": 144544,
+      "nufus_artis_hizi": -2,
+      "ortalama_hane_geliri": 66000
+    }
+  },
+  {
+    "id": "hakkari",
+    "ad": "Hakkari",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 5000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 1,
+      "yabanci_dil_orani": 2
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 2,
+      "hastane_yatak_kapasitesi": 1.5,
+      "yesil_alan_orani": 2
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 80,
+      "startup_sayisi": 1,
+      "ihracat_hacmi_milyon_usd": 3
+    },
+    "demografi": {
+      "toplam_nufus": 275333,
+      "nufus_artis_hizi": -1.8,
+      "ortalama_hane_geliri": 52000
+    }
+  },
+  {
+    "id": "hatay",
+    "ad": "Hatay",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 45000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 5,
+      "yabanci_dil_orani": 10
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.4,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 4,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 130,
+      "startup_sayisi": 35,
+      "ihracat_hacmi_milyon_usd": 3000
+    },
+    "demografi": {
+      "toplam_nufus": 1670712,
+      "nufus_artis_hizi": -0.8,
+      "ortalama_hane_geliri": 77000
+    }
+  },
+  {
+    "id": "igdir",
+    "ad": "Iğdır",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 7000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 2,
+      "yabanci_dil_orani": 3
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 4,
+      "hastane_yatak_kapasitesi": 1.8,
+      "yesil_alan_orani": 4
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 75,
+      "startup_sayisi": 2,
+      "ihracat_hacmi_milyon_usd": 25
+    },
+    "demografi": {
+      "toplam_nufus": 203594,
+      "nufus_artis_hizi": 0.2,
+      "ortalama_hane_geliri": 63000
+    }
+  },
+  {
+    "id": "isparta",
+    "ad": "Isparta",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 60000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 8
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.9,
+      "yesil_alan_orani": 9
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 120,
+      "startup_sayisi": 20,
+      "ihracat_hacmi_milyon_usd": 300
+    },
+    "demografi": {
+      "toplam_nufus": 445325,
+      "nufus_artis_hizi": 0.1,
+      "ortalama_hane_geliri": 81000
+    }
+  },
+  {
+    "id": "istanbul",
+    "ad": "İstanbul",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 15,
+      "universite_ogrenci_sayisi": 1000000,
+      "teknopark_sayisi": 12,
+      "beyin_gocu_endeksi": 10,
+      "yabanci_dil_orani": 40
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 3.2,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 9,
+      "tesvik_derecesi": 1,
+      "ortalama_metrekare_kira": 600,
+      "startup_sayisi": 5000,
+      "ihracat_hacmi_milyon_usd": 100000
+    },
+    "demografi": {
+      "toplam_nufus": 15907951,
+      "nufus_artis_hizi": 0.7,
+      "ortalama_hane_geliri": 150000
+    }
+  },
+  {
+    "id": "izmir",
+    "ad": "İzmir",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 8,
+      "universite_ogrenci_sayisi": 200000,
+      "teknopark_sayisi": 5,
+      "beyin_gocu_endeksi": 9,
+      "yabanci_dil_orani": 28
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 3,
+      "yesil_alan_orani": 11
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 13,
+      "tesvik_derecesi": 1,
+      "ortalama_metrekare_kira": 350,
+      "startup_sayisi": 800,
+      "ihracat_hacmi_milyon_usd": 12000
+    },
+    "demografi": {
+      "toplam_nufus": 4462056,
+      "nufus_artis_hizi": 0.8,
+      "ortalama_hane_geliri": 115000
+    }
+  },
+  {
+    "id": "kahramanmaras",
+    "ad": "Kahramanmaraş",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 35000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.3,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 100,
+      "startup_sayisi": 20,
+      "ihracat_hacmi_milyon_usd": 1300
+    },
+    "demografi": {
+      "toplam_nufus": 1177436,
+      "nufus_artis_hizi": 0.5,
+      "ortalama_hane_geliri": 73000
+    }
+  },
+  {
+    "id": "karabuk",
+    "ad": "Karabük",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 40000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 5,
+      "yabanci_dil_orani": 7
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.6,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 90,
+      "startup_sayisi": 10,
+      "ihracat_hacmi_milyon_usd": 150
+    },
+    "demografi": {
+      "toplam_nufus": 252058,
+      "nufus_artis_hizi": 0.8,
+      "ortalama_hane_geliri": 76000
+    }
+  },
+  {
+    "id": "karaman",
+    "ad": "Karaman",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 15000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.2,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 85,
+      "startup_sayisi": 8,
+      "ihracat_hacmi_milyon_usd": 280
+    },
+    "demografi": {
+      "toplam_nufus": 260838,
+      "nufus_artis_hizi": 0.7,
+      "ortalama_hane_geliri": 74000
+    }
+  },
+  {
+    "id": "kars",
+    "ad": "Kars",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 18000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 2,
+      "yabanci_dil_orani": 3
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 4,
+      "hastane_yatak_kapasitesi": 2,
+      "yesil_alan_orani": 4
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 65,
+      "startup_sayisi": 4,
+      "ihracat_hacmi_milyon_usd": 18
+    },
+    "demografi": {
+      "toplam_nufus": 274829,
+      "nufus_artis_hizi": -1.2,
+      "ortalama_hane_geliri": 61000
+    }
+  },
+  {
+    "id": "kastamonu",
+    "ad": "Kastamonu",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 25000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 3,
+      "yabanci_dil_orani": 4
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2.3,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 85,
+      "startup_sayisi": 6,
+      "ihracat_hacmi_milyon_usd": 100
+    },
+    "demografi": {
+      "toplam_nufus": 375476,
+      "nufus_artis_hizi": -0.8,
+      "ortalama_hane_geliri": 70000
+    }
+  },
+  {
+    "id": "kayseri",
+    "ad": "Kayseri",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 70000,
+      "teknopark_sayisi": 2,
+      "beyin_gocu_endeksi": 7,
+      "yabanci_dil_orani": 9
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.8,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 4,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 120,
+      "startup_sayisi": 80,
+      "ihracat_hacmi_milyon_usd": 3800
+    },
+    "demografi": {
+      "toplam_nufus": 1441523,
+      "nufus_artis_hizi": 0.7,
+      "ortalama_hane_geliri": 80000
+    }
+  },
+  {
+    "id": "kilis",
+    "ad": "Kilis",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 10000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 3,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2,
+      "yesil_alan_orani": 4
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 90,
+      "startup_sayisi": 5,
+      "ihracat_hacmi_milyon_usd": 45
+    },
+    "demografi": {
+      "toplam_nufus": 147919,
+      "nufus_artis_hizi": 1.5,
+      "ortalama_hane_geliri": 68000
+    }
+  },
+  {
+    "id": "kirikkale",
+    "ad": "Kırıkkale",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 35000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 5,
+      "yabanci_dil_orani": 7
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.5,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 100,
+      "startup_sayisi": 10,
+      "ihracat_hacmi_milyon_usd": 120
+    },
+    "demografi": {
+      "toplam_nufus": 277046,
+      "nufus_artis_hizi": -0.6,
+      "ortalama_hane_geliri": 77000
+    }
+  },
+  {
+    "id": "kirklareli",
+    "ad": "Kırklareli",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 25000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 10
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.4,
+      "yesil_alan_orani": 9
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 120,
+      "startup_sayisi": 15,
+      "ihracat_hacmi_milyon_usd": 200
+    },
+    "demografi": {
+      "toplam_nufus": 369345,
+      "nufus_artis_hizi": 0.7,
+      "ortalama_hane_geliri": 89000
+    }
+  },
+  {
+    "id": "kirsehir",
+    "ad": "Kırşehir",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 22000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.3,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 80,
+      "startup_sayisi": 6,
+      "ihracat_hacmi_milyon_usd": 60
+    },
+    "demografi": {
+      "toplam_nufus": 242944,
+      "nufus_artis_hizi": -0.1,
+      "ortalama_hane_geliri": 71000
+    }
+  },
+  {
+    "id": "kocaeli",
+    "ad": "Kocaeli",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 5,
+      "universite_ogrenci_sayisi": 90000,
+      "teknopark_sayisi": 5,
+      "beyin_gocu_endeksi": 8,
+      "yabanci_dil_orani": 22
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 3,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 14,
+      "tesvik_derecesi": 1,
+      "ortalama_metrekare_kira": 280,
+      "startup_sayisi": 300,
+      "ihracat_hacmi_milyon_usd": 15000
+    },
+    "demografi": {
+      "toplam_nufus": 2079074,
+      "nufus_artis_hizi": 2.2,
+      "ortalama_hane_geliri": 125000
+    }
+  },
+  {
+    "id": "konya",
+    "ad": "Konya",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 3,
+      "universite_ogrenci_sayisi": 130000,
+      "teknopark_sayisi": 2,
+      "beyin_gocu_endeksi": 7,
+      "yabanci_dil_orani": 10
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.9,
+      "yesil_alan_orani": 10
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 12,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 130,
+      "startup_sayisi": 100,
+      "ihracat_hacmi_milyon_usd": 3000
+    },
+    "demografi": {
+      "toplam_nufus": 2296347,
+      "nufus_artis_hizi": 0.9,
+      "ortalama_hane_geliri": 80000
+    }
+  },
+  {
+    "id": "kutahya",
+    "ad": "Kütahya",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 45000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 5,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.6,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 5,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 100,
+      "startup_sayisi": 15,
+      "ihracat_hacmi_milyon_usd": 350
+    },
+    "demografi": {
+      "toplam_nufus": 580701,
+      "nufus_artis_hizi": 0.1,
+      "ortalama_hane_geliri": 77000
+    }
+  },
+  {
+    "id": "malatya",
+    "ad": "Malatya",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 38000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.5,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 95,
+      "startup_sayisi": 20,
+      "ihracat_hacmi_milyon_usd": 450
+    },
+    "demografi": {
+      "toplam_nufus": 812580,
+      "nufus_artis_hizi": 0.5,
+      "ortalama_hane_geliri": 70000
+    }
+  },
+  {
+    "id": "manisa",
+    "ad": "Manisa",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 55000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 9
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.7,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 6,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 160,
+      "startup_sayisi": 60,
+      "ihracat_hacmi_milyon_usd": 4000
+    },
+    "demografi": {
+      "toplam_nufus": 1468279,
+      "nufus_artis_hizi": 0.7,
+      "ortalama_hane_geliri": 87000
+    }
+  },
+  {
+    "id": "mardin",
+    "ad": "Mardin",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 20000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 3,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 4,
+      "hastane_yatak_kapasitesi": 1.9,
+      "yesil_alan_orani": 3
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 90,
+      "startup_sayisi": 10,
+      "ihracat_hacmi_milyon_usd": 1000
+    },
+    "demografi": {
+      "toplam_nufus": 870374,
+      "nufus_artis_hizi": 1.3,
+      "ortalama_hane_geliri": 65000
+    }
+  },
+  {
+    "id": "mersin",
+    "ad": "Mersin",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 60000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 12
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.7,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 5,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 170,
+      "startup_sayisi": 70,
+      "ihracat_hacmi_milyon_usd": 4000
+    },
+    "demografi": {
+      "toplam_nufus": 1916432,
+      "nufus_artis_hizi": 1.2,
+      "ortalama_hane_geliri": 88000
+    }
+  },
+  {
+    "id": "mugla",
+    "ad": "Muğla",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 45000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 8,
+      "yabanci_dil_orani": 28
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.5,
+      "yesil_alan_orani": 15
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 300,
+      "startup_sayisi": 90,
+      "ihracat_hacmi_milyon_usd": 600
+    },
+    "demografi": {
+      "toplam_nufus": 1048185,
+      "nufus_artis_hizi": 2.3,
+      "ortalama_hane_geliri": 98000
+    }
+  },
+  {
+    "id": "mus",
+    "ad": "Muş",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 12000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 1,
+      "yabanci_dil_orani": 2
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 3,
+      "hastane_yatak_kapasitesi": 1.6,
+      "yesil_alan_orani": 3
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 60,
+      "startup_sayisi": 2,
+      "ihracat_hacmi_milyon_usd": 5
+    },
+    "demografi": {
+      "toplam_nufus": 399202,
+      "nufus_artis_hizi": -1.3,
+      "ortalama_hane_geliri": 56000
+    }
+  },
+  {
+    "id": "nevsehir",
+    "ad": "Nevşehir",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 20000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 5,
+      "yabanci_dil_orani": 10
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.4,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 95,
+      "startup_sayisi": 10,
+      "ihracat_hacmi_milyon_usd": 80
+    },
+    "demografi": {
+      "toplam_nufus": 310011,
+      "nufus_artis_hizi": 0.7,
+      "ortalama_hane_geliri": 76000
+    }
+  },
+  {
+    "id": "nigde",
+    "ad": "Niğde",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 26000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 4
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.3,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 80,
+      "startup_sayisi": 7,
+      "ihracat_hacmi_milyon_usd": 100
+    },
+    "demografi": {
+      "toplam_nufus": 365419,
+      "nufus_artis_hizi": 0.2,
+      "ortalama_hane_geliri": 72000
+    }
+  },
+  {
+    "id": "ordu",
+    "ad": "Ordu",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 28000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2.4,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 100,
+      "startup_sayisi": 12,
+      "ihracat_hacmi_milyon_usd": 280
+    },
+    "demografi": {
+      "toplam_nufus": 763190,
+      "nufus_artis_hizi": -1,
+      "ortalama_hane_geliri": 74000
+    }
+  },
+  {
+    "id": "osmaniye",
+    "ad": "Osmaniye",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 18000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.2,
+      "yesil_alan_orani": 4
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 2,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 90,
+      "startup_sayisi": 9,
+      "ihracat_hacmi_milyon_usd": 200
+    },
+    "demografi": {
+      "toplam_nufus": 559405,
+      "nufus_artis_hizi": 1.2,
+      "ortalama_hane_geliri": 70000
+    }
+  },
+  {
+    "id": "rize",
+    "ad": "Rize",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 20000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 4,
+      "hastane_yatak_kapasitesi": 2.5,
+      "yesil_alan_orani": 9
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 110,
+      "startup_sayisi": 10,
+      "ihracat_hacmi_milyon_usd": 180
+    },
+    "demografi": {
+      "toplam_nufus": 344016,
+      "nufus_artis_hizi": -0.4,
+      "ortalama_hane_geliri": 78000
+    }
+  },
+  {
+    "id": "sakarya",
+    "ad": "Sakarya",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 70000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 7,
+      "yabanci_dil_orani": 10
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.8,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 6,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 150,
+      "startup_sayisi": 50,
+      "ihracat_hacmi_milyon_usd": 5000
+    },
+    "demografi": {
+      "toplam_nufus": 1080080,
+      "nufus_artis_hizi": 1.8,
+      "ortalama_hane_geliri": 91000
+    }
+  },
+  {
+    "id": "samsun",
+    "ad": "Samsun",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 60000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 8
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.7,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 5,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 120,
+      "startup_sayisi": 40,
+      "ihracat_hacmi_milyon_usd": 1200
+    },
+    "demografi": {
+      "toplam_nufus": 1368488,
+      "nufus_artis_hizi": 0.2,
+      "ortalama_hane_geliri": 80000
+    }
+  },
+  {
+    "id": "sanliurfa",
+    "ad": "Şanlıurfa",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 50000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 2,
+      "yabanci_dil_orani": 4
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 1.9,
+      "yesil_alan_orani": 3
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 90,
+      "startup_sayisi": 25,
+      "ihracat_hacmi_milyon_usd": 280
+    },
+    "demografi": {
+      "toplam_nufus": 2170110,
+      "nufus_artis_hizi": 2.1,
+      "ortalama_hane_geliri": 61000
+    }
+  },
+  {
+    "id": "siirt",
+    "ad": "Siirt",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 12000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 1,
+      "yabanci_dil_orani": 2
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 3,
+      "hastane_yatak_kapasitesi": 1.7,
+      "yesil_alan_orani": 3
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 70,
+      "startup_sayisi": 3,
+      "ihracat_hacmi_milyon_usd": 10
+    },
+    "demografi": {
+      "toplam_nufus": 331311,
+      "nufus_artis_hizi": -0.2,
+      "ortalama_hane_geliri": 57000
+    }
+  },
+  {
+    "id": "sinop",
+    "ad": "Sinop",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 10000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2.4,
+      "yesil_alan_orani": 12
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 95,
+      "startup_sayisi": 4,
+      "ihracat_hacmi_milyon_usd": 30
+    },
+    "demografi": {
+      "toplam_nufus": 220799,
+      "nufus_artis_hizi": 0.5,
+      "ortalama_hane_geliri": 75000
+    }
+  },
+  {
+    "id": "sirnak",
+    "ad": "Şırnak",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 8000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 1,
+      "yabanci_dil_orani": 2
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 2,
+      "hastane_yatak_kapasitesi": 1.4,
+      "yesil_alan_orani": 2
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 85,
+      "startup_sayisi": 1,
+      "ihracat_hacmi_milyon_usd": 150
+    },
+    "demografi": {
+      "toplam_nufus": 546589,
+      "nufus_artis_hizi": 1.8,
+      "ortalama_hane_geliri": 55000
+    }
+  },
+  {
+    "id": "sivas",
+    "ad": "Sivas",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 50000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.5,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 5,
+      "ortalama_metrekare_kira": 75,
+      "startup_sayisi": 15,
+      "ihracat_hacmi_milyon_usd": 180
+    },
+    "demografi": {
+      "toplam_nufus": 634924,
+      "nufus_artis_hizi": -0.2,
+      "ortalama_hane_geliri": 69000
+    }
+  },
+  {
+    "id": "tekirdag",
+    "ad": "Tekirdağ",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 40000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 7,
+      "yabanci_dil_orani": 15
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.6,
+      "yesil_alan_orani": 7
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 8,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 180,
+      "startup_sayisi": 45,
+      "ihracat_hacmi_milyon_usd": 1500
+    },
+    "demografi": {
+      "toplam_nufus": 1142451,
+      "nufus_artis_hizi": 2.8,
+      "ortalama_hane_geliri": 98000
+    }
+  },
+  {
+    "id": "tokat",
+    "ad": "Tokat",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 30000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.4,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 80,
+      "startup_sayisi": 10,
+      "ihracat_hacmi_milyon_usd": 70
+    },
+    "demografi": {
+      "toplam_nufus": 596454,
+      "nufus_artis_hizi": -1.1,
+      "ortalama_hane_geliri": 71000
+    }
+  },
+  {
+    "id": "trabzon",
+    "ad": "Trabzon",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 55000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 6,
+      "yabanci_dil_orani": 9
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Uluslararası",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2.8,
+      "yesil_alan_orani": 8
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 4,
+      "tesvik_derecesi": 4,
+      "ortalama_metrekare_kira": 120,
+      "startup_sayisi": 35,
+      "ihracat_hacmi_milyon_usd": 1100
+    },
+    "demografi": {
+      "toplam_nufus": 818023,
+      "nufus_artis_hizi": 0.2,
+      "ortalama_hane_geliri": 82000
+    }
+  },
+  {
+    "id": "tunceli",
+    "ad": "Tunceli",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 0,
+      "universite_ogrenci_sayisi": 7000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 3,
+      "yabanci_dil_orani": 5
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 4,
+      "hastane_yatak_kapasitesi": 2,
+      "yesil_alan_orani": 15
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 5,
+      "ortalama_metrekare_kira": 90,
+      "startup_sayisi": 2,
+      "ihracat_hacmi_milyon_usd": 4
+    },
+    "demografi": {
+      "toplam_nufus": 83443,
+      "nufus_artis_hizi": -1,
+      "ortalama_hane_geliri": 70000
+    }
+  },
+  {
+    "id": "usak",
+    "ad": "Uşak",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 26000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 5,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 7,
+      "hastane_yatak_kapasitesi": 2.4,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 95,
+      "startup_sayisi": 12,
+      "ihracat_hacmi_milyon_usd": 320
+    },
+    "demografi": {
+      "toplam_nufus": 375454,
+      "nufus_artis_hizi": 0.5,
+      "ortalama_hane_geliri": 79000
+    }
+  },
+  {
+    "id": "van",
+    "ad": "Van",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 35000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 2,
+      "yabanci_dil_orani": 4
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 4,
+      "hastane_yatak_kapasitesi": 2,
+      "yesil_alan_orani": 4
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 6,
+      "ortalama_metrekare_kira": 80,
+      "startup_sayisi": 15,
+      "ihracat_hacmi_milyon_usd": 60
+    },
+    "demografi": {
+      "toplam_nufus": 1128749,
+      "nufus_artis_hizi": -1.5,
+      "ortalama_hane_geliri": 60000
+    }
+  },
+  {
+    "id": "yalova",
+    "ad": "Yalova",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 15000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 7,
+      "yabanci_dil_orani": 15
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 8,
+      "hastane_yatak_kapasitesi": 2.7,
+      "yesil_alan_orani": 10
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 4,
+      "tesvik_derecesi": 2,
+      "ortalama_metrekare_kira": 200,
+      "startup_sayisi": 30,
+      "ihracat_hacmi_milyon_usd": 400
+    },
+    "demografi": {
+      "toplam_nufus": 296333,
+      "nufus_artis_hizi": 1.8,
+      "ortalama_hane_geliri": 95000
+    }
+  },
+  {
+    "id": "yozgat",
+    "ad": "Yozgat",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 1,
+      "universite_ogrenci_sayisi": 20000,
+      "teknopark_sayisi": 0,
+      "beyin_gocu_endeksi": 3,
+      "yabanci_dil_orani": 4
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yok",
+      "liman_var_mi": false,
+      "yol_kalite_skoru": 6,
+      "hastane_yatak_kapasitesi": 2.2,
+      "yesil_alan_orani": 5
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 1,
+      "tesvik_derecesi": 5,
+      "ortalama_metrekare_kira": 70,
+      "startup_sayisi": 5,
+      "ihracat_hacmi_milyon_usd": 30
+    },
+    "demografi": {
+      "toplam_nufus": 418442,
+      "nufus_artis_hizi": -0.2,
+      "ortalama_hane_geliri": 68000
+    }
+  },
+  {
+    "id": "zonguldak",
+    "ad": "Zonguldak",
+    "insan_kaynaklari": {
+      "muhendislik_fakulte_sayisi": 2,
+      "universite_ogrenci_sayisi": 35000,
+      "teknopark_sayisi": 1,
+      "beyin_gocu_endeksi": 4,
+      "yabanci_dil_orani": 6
+    },
+    "lojistik_yasam_kalitesi": {
+      "havalimani_tipi": "Yurtiçi",
+      "liman_var_mi": true,
+      "yol_kalite_skoru": 5,
+      "hastane_yatak_kapasitesi": 2.6,
+      "yesil_alan_orani": 6
+    },
+    "pazar_ve_maliyet": {
+      "osb_sayisi": 3,
+      "tesvik_derecesi": 3,
+      "ortalama_metrekare_kira": 100,
+      "startup_sayisi": 12,
+      "ihracat_hacmi_milyon_usd": 300
+    },
+    "demografi": {
+      "toplam_nufus": 588510,
+      "nufus_artis_hizi": -0.2,
+      "ortalama_hane_geliri": 79000
+    }
+  }
+]
