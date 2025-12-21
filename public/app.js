@@ -44,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let cityTrendChartInstance = null;
     let currentAnalysisTrendData = []; // Veriyi hafızada saklamak için yeni eklendi
 
+    // --- YENİ EKLENEN: ZAMAN TÜNELİ (KRONOLOJİ) ELEMENTLERİ ---
+    const showTimelineViewBtn = document.getElementById('show-timeline-view-btn');
+    const timelineView = document.getElementById('timeline-view');
+    const timelineListContainer = document.getElementById('timeline-list');
+
     let currentCriteriaData = []; 
 
     const menuButtons = document.querySelectorAll('.menu-btn');
@@ -65,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { key: 'Startup Sayısı', path: ['pazar_ve_maliyet', 'startup_sayisi'], higherIsBetter: true },
         { key: 'İhracat Hacmi (Milyon $)', path: ['pazar_ve_maliyet', 'ihracat_hacmi_milyon_usd'], higherIsBetter: true },
         { key: 'Nüfus Artış Hızı (%)', path: ['demografi', 'nufus_artis_hizi'], higherIsBetter: true },
-        { key: 'Ortalama Hane Geliri (TL)', path: ['demografi', 'ortalama_hane_geliri'], higherIsBetter: true },
+        { key: 'Ortalama Hane Geliri (dolar)', path: ['demografi', 'ortalama_hane_geliri'], higherIsBetter: true },
         { key: 'Ortalama Ofis Kirası (m²/TL)', path: ['pazar_ve_maliyet', 'ortalama_metrekare_kira'], higherIsBetter: false } // Düşük olması daha iyi
     ];
 
@@ -243,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         compareView.classList.remove('active');
         criteriaView.classList.remove('active'); 
         analysisView.classList.remove('active'); 
+        timelineView.classList.remove('active'); 
         menuButtons.forEach(btn => btn.classList.remove('active'));
 
         mapView.style.display = 'none';
@@ -250,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
         compareView.style.display = 'none';
         criteriaView.style.display = 'none';
         analysisView.style.display = 'none'; 
+        timelineView.style.display = 'none'; 
         
         const viewToShow = document.getElementById(viewIdToShow);
         if (viewToShow) {
@@ -265,6 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (viewIdToShow === 'compare-view' && allProvincesData.length > 0 && provinceListContainer.children.length === 0) {
             populateProvinceSelectionList();
             populateMetricSelectionList();
+        } else if (viewIdToShow === 'timeline-view') {
+            fetchTimelineData(); 
         }
     }
 
@@ -302,6 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showCompareViewBtn.addEventListener('click', () => showView('compare-view'));
         showCriteriaViewBtn.addEventListener('click', () => showView('criteria-view'));
         showAnalysisViewBtn.addEventListener('click', () => showView('analysis-view')); 
+        showTimelineViewBtn.addEventListener('click', () => showView('timeline-view')); 
 
         fetch('/api/provinces')
             .then(res => res.json())
@@ -310,17 +320,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     allProvincesData = result.data.sort((a, b) => a.ad.localeCompare(b.ad, 'tr'));
                     initMap(userRole);
                     
-                    // --- SIDEBAR ARAMA MOTORU BAĞLANTISI ---
                     const citySearchInput = document.getElementById('city-search-input');
                     if (citySearchInput) {
                         citySearchInput.addEventListener('input', (e) => {
                             const term = e.target.value.trim().toLocaleLowerCase('tr');
                             if (term.length > 0) {
-                                // Arama yapılıyorsa sonuçları göster
                                 const filtered = allProvincesData.filter(p => p.ad.toLocaleLowerCase('tr').includes(term));
                                 renderSidebarCityList(filtered);
                             } else {
-                                // Arama kutusu boşsa listeyi temizle
                                 const listDiv = document.getElementById('sidebar-city-list');
                                 if(listDiv) listDiv.innerHTML = '';
                             }
@@ -330,15 +337,65 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => console.error("Tüm il verileri çekilirken hata:", err));
 
-        // YENİ: Zaman Serisi Metrik Seçici Dinleyicisi
+        // EFENDİM: 5'li Metrik Seçici Güncellemesi
         const metricSelect = document.getElementById('analysis-metric-select');
         if (metricSelect) {
+            metricSelect.innerHTML = `
+                <option value="ihracat_hacmi_milyon_usd">İhracat Trendi ($)</option>
+                <option value="toplam_nufus">Nüfus Değişimi</option>
+                <option value="ortalama_hane_geliri">Gelir Artışı (dolar)</option>
+                <option value="yetenek_endeksi">Yetenek & İK Trendi</option>
+                <option value="refah_skoru">Yaşam Kalitesi Trendi</option>
+            `;
             metricSelect.addEventListener('change', (e) => {
                 if (currentAnalysisTrendData.length > 0) {
                     renderCityTrendChart(currentAnalysisTrendData, e.target.value);
                 }
             });
         }
+
+        const allPrefSliders = document.querySelectorAll('.pref-slider');
+        allPrefSliders.forEach(slider => {
+            updateSliderLabels(slider);
+            slider.addEventListener('input', (e) => {
+                updateSliderLabels(e.target);
+            });
+        });
+
+        const strategyButtons = document.querySelectorAll('.strategy-btn');
+        strategyButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                strategyButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    }
+
+    function updateSliderLabels(slider) {
+        const val = parseInt(slider.value);
+        const targetId = slider.id.replace('sim_', 'val_');
+        const displaySpan = document.getElementById(targetId);
+        if (!displaySpan) return;
+
+        let text = "";
+        let color = "";
+
+        if (slider.id === 'sim_bonus') {
+            if (val < 25) { text = "Yok / Zayıf"; color = "#6c757d"; }
+            else if (val < 50) { text = "Standart"; color = "#28a745"; }
+            else if (val < 75) { text = "Potansiyel Odaklı"; color = "#007bff"; }
+            else { text = "Maksimum Fırsat"; color = "#6f42c1"; }
+        } else {
+            if (val < 20) { text = "Düşük Öncelik"; color = "#95a5a6"; }
+            else if (val < 40) { text = "Orta-Düşük"; color = "#7f8c8d"; }
+            else if (val < 60) { text = "Dengeli"; color = "#2ecc71"; }
+            else if (val < 80) { text = "Önemli"; color = "#f39c12"; }
+            else { text = "Kritik"; color = "#e74c3c"; }
+        }
+
+        displaySpan.innerText = text;
+        displaySpan.style.color = color;
+        displaySpan.style.borderColor = color;
     }
 
 
@@ -568,7 +625,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .slice(0, 10);
         const labels = sortedData.map(p => p.ad);
         const data = sortedData.map(p => p.demografi.ortalama_hane_geliri);
-        gelirChartInstance = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Ortalama Hane Geliri (TL)', data, backgroundColor: '#e67e22' }] }, options: { responsive: true, indexAxis: 'y', plugins: { legend: { display: false } } }});
+        gelirChartInstance = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Ortalama Hane Geliri (dolar)', data, backgroundColor: '#e67e22' }] }, options: { responsive: true, indexAxis: 'y', plugins: { legend: { display: false } } }});
     }
 
 
@@ -658,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
         compareRadarChartInstance = new Chart(ctx, { type: 'radar', data: { labels: metrics.map(m => m.key), datasets: datasets }, options: { responsive: true, scales: { r: { suggestedMin: 0, suggestedMax: 100 }}}});
     }
 
-    // --- YENİ EKLENEN: BENTO GRID ANALIZ FONKSIYONLARI ---
+    // --- BENTO GRID ANALIZ FONKSIYONLARI ---
     
     function fetchCityAnalysisData(cityName) {
         fetch(`/api/city-analysis?il_adi=${cityName}`)
@@ -681,13 +738,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const growthElem = document.getElementById('city-growth-rate');
         if(growthElem) {
             growthElem.innerText = `%${data.on_yillik_buyume_hizi}`;
-            growthElem.style.color = data.on_yillik_buyume_hizi >= 0 ? '#10b981' : '#ef4444'; // Modern yeşil/kırmızı
+            growthElem.style.color = data.on_yillik_buyume_hizi >= 0 ? '#10b981' : '#ef4444'; 
         }
 
         const logStatus = document.getElementById('city-logistics-status');
         const logBadge = document.getElementById('city-logistics-badge');
         if(logStatus && logBadge) {
-            if(data.liman_var_mi == 1) {
+            const hasPort = data.lojistik_yasam_kalitesi?.liman_var_mi || data.liman_var_mi;
+            if(hasPort) {
                 logStatus.innerText = "Liman Mevcut";
                 logBadge.innerText = "Deniz Ticareti";
                 logBadge.style.background = "#3b82f6";
@@ -703,9 +761,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if(scoreElem) scoreElem.innerText = data.genel_cazibe_puani;
         if(descElem) descElem.innerText = data.cazibe_yorumu;
 
-        // Grafiği mevcut seçili metriğe göre çiz (Zaman Yolculuğu)
+        const costEffElem = document.getElementById('city-cost-efficiency');
+        if(costEffElem) {
+            const kira = data.pazar_ve_maliyet?.ortalama_metrekare_kira || data.ortalama_metrekare_kira || 100;
+            const tesvik = data.pazar_ve_maliyet?.tesvik_derecesi || data.tesvik_derecesi || 1;
+            const ratio = (tesvik * 100) / kira; 
+            costEffElem.innerText = ratio > 1.5 ? "YÜKSEK" : (ratio > 0.8 ? "ORTA" : "DÜŞÜK");
+        }
+
+        // --- EFENDİM: GRAFİKLERİ TETİKLE ---
         const currentMetric = document.getElementById('analysis-metric-select').value;
         renderCityTrendChart(trendData, currentMetric);
+        // Beğenmediğiniz o iki boş kutuyu buradan da sildim efendim.
     }
 
     function renderCityTrendChart(trendData, metricKey) {
@@ -714,14 +781,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d');
         if (cityTrendChartInstance) { cityTrendChartInstance.destroy(); }
 
+        // Efendim: Yetenek ve refah için dinamik hesaplama yolları (Trend verisi üzerinden)
+        const dataSet = trendData.map(d => {
+            if (metricKey === 'yetenek_endeksi') {
+                return (d.muhendislik_fakulte_sayisi * 10) + (d.universite_ogrenci_sayisi / 1000);
+            } else if (metricKey === 'refah_skoru') {
+                return (d.hastane_yatak_kapasitesi * 5) + (d.yol_kalite_skoru * 5);
+            }
+            return d[metricKey];
+        });
+
         const config = {
             ihracat_hacmi_milyon_usd: { label: 'İhracat (Milyon $)', color: '#3b82f6' },
             toplam_nufus: { label: 'Toplam Nüfus', color: '#10b981' },
-            ortalama_hane_geliri: { label: 'Ortalama Gelir (TL)', color: '#f59e0b' }
+            ortalama_hane_geliri: { label: 'Ortalama Gelir (TL)', color: '#f59e0b' },
+            yetenek_endeksi: { label: 'Yetenek & İK Trendi', color: '#8b5cf6' },
+            refah_skoru: { label: 'Yaşam Kalitesi Trendi', color: '#ec4899' }
         };
 
         const currentCfg = config[metricKey];
-
         const gradient = ctx.createLinearGradient(0, 0, 0, 400);
         gradient.addColorStop(0, `${currentCfg.color}66`);
         gradient.addColorStop(1, `${currentCfg.color}00`);
@@ -732,13 +810,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 labels: trendData.map(d => d.yil),
                 datasets: [{
                     label: currentCfg.label,
-                    data: trendData.map(d => d[metricKey]),
+                    data: dataSet,
                     borderColor: currentCfg.color,
                     borderWidth: 3,
                     pointBackgroundColor: '#ffffff',
                     pointBorderColor: currentCfg.color,
                     pointRadius: 5,
-                    pointHoverRadius: 7,
                     tension: 0.4,
                     fill: true,
                     backgroundColor: gradient
@@ -747,15 +824,7 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { 
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        padding: 12,
-                        titleFont: { size: 14 },
-                        bodyFont: { size: 14 }
-                    }
-                },
+                plugins: { legend: { display: false } },
                 scales: { 
                     x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
                     y: { grid: { color: '#f1f5f9' }, ticks: { color: '#94a3b8' }, beginAtZero: false } 
@@ -764,35 +833,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- YENİ EKLENEN: SIDEBAR İL LİSTESİ FONKSİYONU ---
+    // --- SIDEBAR İL LİSTESİ ---
     function renderSidebarCityList(provinces) {
         const listDiv = document.getElementById('sidebar-city-list');
         if(!listDiv) return;
-        
-        listDiv.innerHTML = ''; // Önce temizle
-        
+        listDiv.innerHTML = ''; 
         provinces.forEach(province => {
             const item = document.createElement('div');
             item.className = 'sidebar-city-item';
             item.innerText = province.ad;
-            
             item.onclick = () => {
                 document.querySelectorAll('.sidebar-city-item').forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
-                
                 showView('analysis-view');
                 fetchCityAnalysisData(province.ad);
             };
-            
             listDiv.appendChild(item);
         });
     }
 
-    // --- AKILLI ÖNERİ SİMÜLASYONU ---
+    // --- ZAMAN TÜNELİ ---
+    let allTimelineData = []; 
+    function fetchTimelineData() {
+        if(!timelineListContainer) return;
+        timelineListContainer.innerHTML = '<p style="text-align:center; padding:20px;">Kronoloji yükleniyor...</p>';
+        fetch('/api/kronoloji')
+            .then(res => res.json())
+            .then(result => {
+                if(result.success) {
+                    allTimelineData = result.data;
+                    renderTimeline(allTimelineData);
+                } else {
+                    timelineListContainer.innerHTML = '<p style="color:red; text-align:center;">Haberler yüklenemedi.</p>';
+                }
+            })
+            .catch(err => {
+                console.error("Timeline error:", err);
+                timelineListContainer.innerHTML = '<p style="color:red; text-align:center;">Sunucu hatası.</p>';
+            });
+    }
+
+    function renderTimeline(data) {
+        if(!timelineListContainer) return;
+        timelineListContainer.innerHTML = '';
+        data.forEach(item => {
+            const etkiClass = item.etki_yonu === 'Pozitif' ? 'etki-pozitif' : 
+                             (item.etki_yonu === 'Negatif' ? 'etki-negatif' : 'etki-notr');
+            const card = document.createElement('div');
+            card.className = 'timeline-card';
+            card.innerHTML = `
+                <span class="timeline-year-label">${item.yil}</span>
+                <span class="timeline-badge ${etkiClass}">${item.kategori} | ${item.etki_yonu} Etki</span>
+                <h4 style="margin: 5px 0; color: #1e293b; font-size: 1.1rem;">${item.olay_adi}</h4>
+                <p class="timeline-desc">${item.aciklama}</p>
+            `;
+            timelineListContainer.appendChild(card);
+        });
+    }
+
+    const filterBtn = document.getElementById('btn-filter-timeline');
+    if (filterBtn) {
+        filterBtn.addEventListener('click', () => {
+            const selectedYear = document.getElementById('filter-year').value;
+            const selectedCat = document.getElementById('filter-category').value;
+            const filtered = allTimelineData.filter(item => {
+                const yearMatch = (selectedYear === 'all' || item.yil.toString() === selectedYear);
+                const catMatch = (selectedCat === 'all' || item.kategori === selectedCat);
+                return yearMatch && catMatch;
+            });
+            if (filtered.length === 0) {
+                timelineListContainer.innerHTML = '<p style="text-align:center; padding:50px; color:#64748b;">Haber bulunamadı.</p>';
+            } else {
+                renderTimeline(filtered);
+            }
+        });
+    }
+
+    // --- AKILLI ÖNERİ SİMÜLASYONU (STRATEJİK YATIRIM ROZETLERİ DAHİL) ---
     if (smartSimForm) {
         smartSimForm.addEventListener('submit', (event) => {
             event.preventDefault();
+            const activeStrategyBtn = document.querySelector('.strategy-btn.active');
+            const selectedMode = activeStrategyBtn ? activeStrategyBtn.dataset.mode : 'ESTABLISHED_MARKET';
+
             const preferences = {
+                investorMode: selectedMode,
                 teknopark: parseInt(document.getElementById('sim_teknopark').value),
                 muhendislik: parseInt(document.getElementById('sim_muhendislik').value),
                 osb: parseInt(document.getElementById('sim_osb').value),
@@ -805,7 +930,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 goc: parseInt(document.getElementById('sim_goc').value)
             };
             
-            smartResultsDiv.innerHTML = '<p style="text-align:center; width:100%; font-weight:bold; color:#007bff;">Analiz ediliyor...</p>';
+            smartResultsDiv.innerHTML = '<p style="text-align:center; width:100%; font-weight:bold; color:#0f172a;">Stratejik Veriler Analiz Ediliyor...</p>';
 
             fetch('/api/custom-recommend', {
                 method: 'POST',
@@ -817,12 +942,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (result.success && result.topProvincesWithDetails) {
                     let html = '';
                     result.topProvincesWithDetails.slice(0, 3).forEach((p, index) => {
-                        const colors = ['#1a9850', '#66bd63', '#a6d96a']; 
+                        const colors = ['#0f172a', '#3b82f6', '#10b981'];
+                        const sectorInfo = p.investmentSector;
+                        
                         html += `
                             <div class="recommendation-card" style="border-top: 5px solid ${colors[index]}">
-                                <h3 style="color: ${colors[index]}">#${index + 1} ${p.ad}</h3>
-                                <span class="score-badge" style="color:${colors[index]}; background: #f0fff4;">Skor: ${p.score.toLocaleString('tr-TR')}</span>
-                                <p class="reason-text"><strong>Gerekçe:</strong><br>${p.comment}</p>
+                                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                                    <h3 style="color: ${colors[index]}">#${index + 1} ${p.ad}</h3>
+                                    <span style="font-size:1.5rem;" title="Sektörel Genetik">${sectorInfo.icon}</span>
+                                </div>
+                                <div style="margin: 10px 0;">
+                                    <span class="score-badge" style="color:${colors[index]}; border-color:${colors[index]}; background: #f8fafc;">Skor: ${p.score.toLocaleString('tr-TR')}</span>
+                                    <div style="margin-top:8px; font-size:0.75rem; font-weight:700; color:#475569; background:#e2e8f0; padding:4px 8px; border-radius:4px; display:inline-block;">
+                                        🎯 TAVSİYE: ${sectorInfo.type} (%${sectorInfo.match})
+                                    </div>
+                                </div>
+                                <p class="reason-text" style="font-size:0.85rem; line-height:1.4;"><strong>Analiz Notu:</strong><br>${p.comment}</p>
                             </div>`;
                     });
                     smartResultsDiv.innerHTML = html;

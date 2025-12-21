@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnalizPusula | CBS Tabanlı Karar Destek Sistemi</title>
+    <title>GlobalTech | CBS Tabanlı Karar Destek Sistemi</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="style.css">
     
@@ -31,16 +31,33 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border-top: 5px solid #007bff;
             transition: transform 0.3s;
+            position: relative;
         }
         .recommendation-card:hover { transform: translateY(-5px); }
         .recommendation-card h3 { color: #007bff; margin-bottom: 10px; }
         .recommendation-card .score-badge { 
             background: #e7f1ff; color: #007bff; 
             padding: 5px 10px; border-radius: 20px; font-weight: bold; font-size: 0.9em;
+            border: 1px solid #007bff;
         }
         .recommendation-card .reason-text { 
             margin-top: 15px; font-style: italic; color: #555; line-height: 1.4;
         }
+
+        /* EFENDİM: Sektörel Tavsiye Rozet Stilleri */
+        .sector-badge {
+            margin-top: 12px;
+            padding: 8px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            border-left: 4px solid #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sector-label { font-size: 0.75rem; font-weight: 800; color: #475569; text-transform: uppercase; }
+        .sector-name { font-size: 0.85rem; font-weight: 700; color: #0f172a; }
+
         /* Slider Grid Düzeni */
         .slider-grid {
             display: grid;
@@ -78,6 +95,36 @@
         .sidebar-city-item { padding: 8px 12px; margin: 2px 0; background: #f8f9fa; border-radius: 4px; cursor: pointer; font-size: 13px; transition: all 0.2s; border-left: 3px solid transparent; }
         .sidebar-city-item:hover { background: #e9ecef; border-left: 3px solid #007bff; }
         .sidebar-city-item.active { background: #e7f1ff; border-left: 3px solid #007bff; font-weight: bold; }
+
+        /* --- ZAMAN TÜNELİ (KRONOLOJİ) ÖZEL STİLLERİ --- */
+        .timeline-wrapper { position: relative; padding: 20px 0; }
+        .timeline-wrapper::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 3px; background: #e2e8f0; border-radius: 3px; }
+        .timeline-card { position: relative; margin-left: 50px; margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border-left: 5px solid #007bff; transition: all 0.3s ease; }
+        .timeline-card:hover { transform: translateX(10px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .timeline-card::before { content: ''; position: absolute; left: -36px; top: 20px; width: 16px; height: 16px; background: #007bff; border: 3px solid #fff; border-radius: 50%; z-index: 2; }
+        .timeline-year-label { font-weight: 800; color: #007bff; font-size: 1.2rem; display: block; margin-bottom: 5px; }
+        .timeline-badge { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+        .etki-pozitif { background: #dcfce7; color: #166534; }
+        .etki-negatif { background: #fee2e2; color: #991b1b; }
+        .etki-notr { background: #f1f5f9; color: #475569; }
+        .timeline-desc { color: #475569; font-size: 0.95rem; line-height: 1.6; margin-top: 10px; }
+
+        /* Yeni Slider Etiket Stili */
+        .slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .slider-label { font-weight: 600; color: #444; font-size: 0.85rem; }
+        .slider-value-text { font-size: 0.75rem; font-weight: 800; color: #007bff; background: #e7f1ff; padding: 2px 8px; border-radius: 10px; border: 1px solid #007bff; }
+
+        /* Yeni Strateji Butonları Stili */
+        .strategy-selector { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; }
+        .strategy-btn { 
+            flex: 1; padding: 12px; border: 2px solid #e2e8f0; background: white; border-radius: 10px; 
+            cursor: pointer; font-weight: 700; font-size: 0.85rem; color: #64748b; transition: all 0.3s ease;
+        }
+        .strategy-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
+        .strategy-btn.active { 
+            border-color: #007bff; background: #e7f1ff; color: #007bff; 
+            box-shadow: 0 4px 12px rgba(0,123,255,0.1); 
+        }
     </style>
 </head>
 <body>
@@ -113,7 +160,7 @@
     <div id="app-container">
         <header>
             <div class="container">
-                <div class="logo">AnalizPusula</div>
+                <div class="logo">GlobalTech</div>
                 <div id="user-info" class="user-info">
                     <span id="welcome-text"></span>
                     <button id="logout-btn">Çıkış Yap</button>
@@ -139,6 +186,12 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
                     <span>Akıllı Öneri</span>
                 </button>
+                
+                <button id="show-timeline-view-btn" class="menu-btn" title="Türkiye Zaman Tüneli">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 3V11H21V3H13ZM3 21H11V13H3V21ZM3 11H11V3H3V11ZM13 21H21V13H13V21Z"/></svg>
+                    <span>Zaman Tüneli</span>
+                </button>
+
                 <button id="show-analysis-view-btn" class="menu-btn" title="İl Analiz Karnesi">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
                     <span>İl Karnesi</span>
@@ -192,7 +245,7 @@
                                     <div class="form-group"><label for="yabanci_dil_orani">Yabancı Dil Bilen Nüfus (%):</label><input type="number" id="yabanci_dil_orani" step="0.1"></div>
                                     <hr>
                                     <h4>Lojistik ve Yaşam Kalitesi</h4>
-                                    <div class="form-group"><label for="havalimani_tipi">Havalimanı Tipi:</label><select id="havalimani_tipi"><option value="Yok">Yok</option><option value="Yurtiçi">Yurtiçi</option><option value="Uluslararası">Uluslararası</option></select></div>
+                                    <div class="form-group"><label Carb-for="havalimani_tipi">Havalimanı Tipi:</label><select id="havalimani_tipi"><option value="Yok">Yok</option><option value="Yurtiçi">Yurtiçi</option><option value="Uluslararası">Uluslararası</option></select></div>
                                     <div class="form-group"><label for="liman_var_mi">Liman Var mı?</label><select id="liman_var_mi"><option value="false">Hayır</option><option value="true">Evet</option></select></div>
                                     <div class="form-group"><label for="yol_kalite_skoru">Yol Kalite Skoru (1-10):</label><input type="number" id="yol_kalite_skoru" min="1" max="10"></div>
                                     <div class="form-group"><label for="hastane_yatak_kapasitesi">1000 Kişi Başına Hastane Yatağı:</label><input type="number" id="hastane_yatak_kapasitesi" step="0.1"></div>
@@ -273,32 +326,70 @@
                 
                 <div id="criteria-view" class="view">
                     <div class="criteria-management-container">
-                        <h2>🎯 Akıllı Yatırım Önerisi Al</h2>
-                        <p>Yatırımınız için en önemli kriterleri belirleyin. Sistem tüm Türkiye verilerini analiz ederek size en uygun 3 ili gerekçeleriyle önerecektir.</p>
+                        <h2>🎯 Akıllı Yatırım Stratejisi Belirle</h2>
+                        <p>Yatırım vizyonunuza en uygun stratejik modu seçin ve önceliklerinizi belirleyin. Sistem 3 optimal il önerecektir.</p>
                         
                         <div class="simulation-layout" style="display: flex; gap: 30px;">
                             <div class="simulation-controls" style="flex: 1; background: #f8f9fa; padding: 20px; border-radius: 8px;">
                                 <form id="smart-sim-form">
-                                    <h4 style="margin-bottom:15px; color:#007bff;">Yatırım Öncelikleriniz (0-100)</h4>
+                                    
+                                    <h4 style="margin-bottom:15px; color:#0f172a;">1. Analiz Stratejisi Seçin</h4>
+                                    <div class="strategy-selector" id="investor-strategy-group">
+                                        <button type="button" class="strategy-btn active" data-mode="ESTABLISHED_MARKET">Metropol Ekosistemi</button>
+                                        <button type="button" class="strategy-btn" data-mode="HIGH_EFFICIENCY">Bölgesel Endüstri Odakları</button>
+                                        <button type="button" class="strategy-btn" data-mode="STRATEGIC_GROWTH">Bakir Yatırım Havzaları</button>
+                                    </div>
+
+                                    <h4 style="margin-bottom:15px; color:#007bff;">2. Kriter Ağırlıkları (0-100)</h4>
                                     
                                     <div class="slider-grid">
                                         <div>
-                                            <div class="form-group"><label>Teknopark Sayısı:</label><input type="range" id="sim_teknopark" min="0" max="100" value="50"></div>
-                                            <div class="form-group"><label>Müh. Fakülte Sayısı:</label><input type="range" id="sim_muhendislik" min="0" max="100" value="50"></div>
-                                            <div class="form-group"><label>OSB Sayısı:</label><input type="range" id="sim_osb" min="0" max="100" value="50"></div>
-                                            <div class="form-group"><label>Üniversite Öğrenci Sayısı:</label><input type="range" id="sim_ogrenci" min="0" max="100" value="50"></div>
-                                            <div class="form-group"><label>Yol Kalite Skoru:</label><input type="range" id="sim_yol" min="0" max="100" value="50"></div>
+                                            <div class="form-group">
+                                                <div class="slider-header"><label class="slider-label">Teknopark Sayısı:</label><span id="val_teknopark" class="slider-value-text">Dengeli</span></div>
+                                                <input type="range" id="sim_teknopark" class="pref-slider" min="0" max="100" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="slider-header"><label class="slider-label">Müh. Fakülte Sayısı:</label><span id="val_muhendislik" class="slider-value-text">Dengeli</span></div>
+                                                <input type="range" id="sim_muhendislik" class="pref-slider" min="0" max="100" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="slider-header"><label class="slider-label">OSB Sayısı:</label><span id="val_osb" class="slider-value-text">Dengeli</span></div>
+                                                <input type="range" id="sim_osb" class="pref-slider" min="0" max="100" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="slider-header"><label class="slider-label">Üniversite Öğrenci Sayısı:</label><span id="val_ogrenci" class="slider-value-text">Dengeli</span></div>
+                                                <input type="range" id="sim_ogrenci" class="pref-slider" min="0" max="100" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="slider-header"><label class="slider-label">Yol Kalite Skoru:</label><span id="val_yol" class="slider-value-text">Dengeli</span></div>
+                                                <input type="range" id="sim_yol" class="pref-slider" min="0" max="100" value="50">
+                                            </div>
                                         </div>
                                         <div>
-                                            <div class="form-group"><label>Teşvik Derecesi:</label><input type="range" id="sim_tesvik" min="0" max="100" value="50"></div>
-                                            <div class="form-group"><label>Düşük Kira Beklentisi:</label><input type="range" id="sim_kira" min="0" max="100" value="50"></div>
-                                            <div class="form-group"><label>İhracat Hacmi:</label><input type="range" id="sim_ihracat" min="0" max="100" value="50"></div>
-                                            <div class="form-group"><label>Toplam Nüfus:</label><input type="range" id="sim_nufus" min="0" max="100" value="50"></div>
-                                            <div class="form-group"><label>Düşük Beyin Göçü Risk:</label><input type="range" id="sim_goc" min="0" max="100" value="50"></div>
+                                            <div class="form-group">
+                                                <div class="slider-header"><label class="slider-label">Teşvik Derecesi:</label><span id="val_tesvik" class="slider-value-text">Dengeli</span></div>
+                                                <input type="range" id="sim_tesvik" class="pref-slider" min="0" max="100" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="slider-header"><label class="slider-label">Düşük Kira Beklentisi:</label><span id="val_kira" class="slider-value-text">Dengeli</span></div>
+                                                <input type="range" id="sim_kira" class="pref-slider" min="0" max="100" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="slider-header"><label class="slider-label">İhracat Hacmi:</label><span id="val_ihracat" class="slider-value-text">Dengeli</span></div>
+                                                <input type="range" id="sim_ihracat" class="pref-slider" min="0" max="100" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="slider-header"><label class="slider-label">Toplam Nüfus:</label><span id="val_nufus" class="slider-value-text">Dengeli</span></div>
+                                                <input type="range" id="sim_nufus" class="pref-slider" min="0" max="100" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="slider-header"><label class="slider-label">Düşük Beyin Göçü Risk:</label><span id="val_goc" class="slider-value-text">Dengeli</span></div>
+                                                <input type="range" id="sim_goc" class="pref-slider" min="0" max="100" value="50">
+                                            </div>
                                         </div>
                                     </div>
                                     
-                                    <button type="submit" class="login-btn" style="background:#28a745; margin-top:20px;">Analizi Başlat ve 3 İl Öner</button>
+                                    <button type="submit" class="login-btn" style="background:#0f172a; margin-top:20px; font-weight: 800;">STRATEJİK ANALİZİ BAŞLAT</button>
                                 </form>
                             </div>
                         </div>
@@ -317,6 +408,8 @@
                                 <option value="ihracat_hacmi_milyon_usd">İhracat Trendi ($)</option>
                                 <option value="toplam_nufus">Nüfus Değişimi</option>
                                 <option value="ortalama_hane_geliri">Gelir Artışı (TL)</option>
+                                <option value="yetenek_endeksi">Yetenek & İK Trendi</option>
+                                <option value="refah_skoru">Yaşam Kalitesi Trendi</option>
                             </select>
                         </div>
                         
@@ -345,8 +438,58 @@
                                     <span class="bento-title">Yatırım Cazibe Skoru</span>
                                     <div id="city-attraction-score" class="bento-stat" style="color: #3b82f6;">0.0</div>
                                 </div>
-                                <p id="city-attraction-desc" style="max-width: 60%; color: #475569; font-size: 0.95rem; line-height: 1.6; text-align: right;">Seçilen ilin yatırım potansiyeli veritabanı verilerine göre burada analiz edilir.</p>
+                                <p id="city-attraction-desc" style="max-width: 60%; color: #475569; font-size: 1rem; line-height: 1.6; text-align: right;">Seçilen ilin yatırım potansiyeli veritabanı verilerine göre burada analiz edilir.</p>
                             </div>
+
+                            <div class="bento-item bento-small">
+                                <span class="bento-title">Maliyet Verimliliği</span>
+                                <div id="city-cost-efficiency" class="bento-stat" style="font-size: 1.8rem; color: #f59e0b;">Analiz...</div>
+                                <div style="font-size: 0.8rem; color: #94a3b8;">Kira / Teşvik Rasyosu</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="timeline-view" class="view">
+                    <div class="analysis-container" style="padding: 30px; background: #f8fafc;">
+                        <h2 style="font-size: 2rem; font-weight: 800; color: #1e293b; margin-bottom: 20px;">🇹🇷 Türkiye Ekonomi & Politika Zaman Tüneli</h2>
+                        
+                        <div style="display: flex; gap: 15px; margin-bottom: 25px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                            <div style="flex: 1;">
+                                <label style="display:block; font-size:12px; font-weight:700; color:#64748b; margin-bottom:5px;">YIL SEÇİN</label>
+                                <select id="filter-year" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e2e8f0; outline:none;">
+                                    <option value="all">Tüm Yıllar</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                </select>
+                            </div>
+                            <div style="flex: 1;">
+                                <label style="display:block; font-size:12px; font-weight:700; color:#64748b; margin-bottom:5px;">HABER TÜRÜ</label>
+                                <select id="filter-category" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e2e8f0; outline:none;">
+                                    <option value="all">Tüm Kategoriler</option>
+                                    <option value="Ekonomik">Ekonomik</option>
+                                    <option value="Yatırım">Yatırım</option>
+                                    <option value="Politik">Politik</option>
+                                    <option value="Kriz">Kriz</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; align-items: flex-end;">
+                                <button id="btn-filter-timeline" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Haberleri Getir</button>
+                            </div>
+                        </div>
+
+                        <div class="timeline-wrapper">
+                            <div id="timeline-list">
+                                </div>
                         </div>
                     </div>
                 </div>

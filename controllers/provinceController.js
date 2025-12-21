@@ -106,6 +106,18 @@ exports.getProvinces = (req, res) => {
     });
 };
 
+// --- YENİ EKLENEN: TÜRKİYE KRONOLOJİSİ (ZAMAN TÜNELİ) ---
+exports.getTimeline = (req, res) => {
+    const sql = "SELECT * FROM turkiye_kronolojisi ORDER BY yil DESC, id DESC";
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error("Kronoloji hatası:", err);
+            return res.status(500).json({ success: false, message: 'Kronoloji verileri çekilemedi.' });
+        }
+        res.json({ success: true, data: results });
+    });
+};
+
 exports.getKriterler = (req, res) => {
     const sql = "SELECT kriter_adi, agirlik FROM kriterler";
     db.query(sql, (err, results) => {
@@ -157,7 +169,6 @@ exports.updateProvince = (req, res) => {
     db.query(`UPDATE iller SET ? WHERE il_adi = ?`, [updateData, ilAdi], (mysqlErr, result) => {
         if (!mysqlErr && result && result.affectedRows > 0) return res.json({ success: true, message: `${ilAdi} başarıyla güncellendi (MySQL).` });
         
-        // MySQL başarısızsa JSON yedeği (Senin koddaki attemptJsonWrite mantığı)
         const dbPath = path.join(__dirname, '..', 'database', 'provinces.json');
         fs.readFile(dbPath, 'utf8', (err, fileData) => {
             if (err) return res.status(500).json({ success: false, message: 'Veritabanı okunamadı.' });

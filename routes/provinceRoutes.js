@@ -12,6 +12,9 @@ router.get('/kriterler', provinceController.getKriterler);
 // Bento Grid için il analiz verilerini getirir
 router.get('/city-analysis', provinceController.getCityAnalysis);
 
+// Türkiye Zaman Tüneli (Kronoloji) verilerini getirir - YENİ EKLENDİ
+router.get('/kronoloji', provinceController.getTimeline);
+
 // Harita üzerindeki akıllı öneriyi hesaplar
 router.get('/recommendation', provinceController.getRecommendation);
 
