@@ -1,13 +1,13 @@
 // kds_logic.js
 const getNum = (value) => parseFloat(value) || 0;
 
-// YÜKSELTME FAKTÖRÜ: İller arası farkı abartmak için 1000 ile çarpıyoruz.
+// YÜKSELTME FAKTÖRÜ: 
 const SCORE_BOOST_FACTOR = 1000; 
 
-// İYİMSERLİK FAKTÖRÜ: En düşük skoru bile yukarı çekmek için tüm skorlara eklenir.
+// İYİMSERLİK FAKTÖRÜ: 
 const POSITIVE_BIAS = 10000; 
 
-// --- EFENDİM: 81 İL İÇİN STRATEJİK SEKTÖR HARİTASI ---
+// --- 81 İL İÇİN STRATEJİK SEKTÖR HARİTASI ---
 const PROVINCE_SECTOR_MAP = {
     "Adana": { type: "Gıda & Tarımsal Sanayi", icon: "🚜" },
     "Adıyaman": { type: "Gıda & Tarımsal Sanayi", icon: "🚜" },
@@ -208,10 +208,10 @@ function calculateThematicReport(provinces, reportType) {
     return calculateSmartScoreAndComment(provinces, null, reportType);
 }
 
-// --- EFENDİM: ARTIK SEKTÖRÜ HESAPLAMIYOR, ATANAN VERİYİ GETİRİYORUZ ---
+// --- atanan veriler geliyor ---
 function identifyBestInvestmentSector(provinceName) {
     const sector = PROVINCE_SECTOR_MAP[provinceName] || DEFAULT_SECTOR;
-    // Gerçekçilik için uyum yüzdesini küçük bir varyasyonla veriyoruz efendim
+    // uyum
     const randomMatch = (88 + Math.random() * 10).toFixed(1); 
     return { ...sector, match: randomMatch };
 }
@@ -303,7 +303,7 @@ function calculateCustomRecommendation(provinces, preferences) {
         
         let finalScore = (normalizedTotalScore * modeMultiplier * 100) + POSITIVE_BIAS;
 
-        // EFENDİM: İsme göre sektör atamasını yapıyoruz
+        // sektör atama
         const investmentSector = identifyBestInvestmentSector(p.ad);
 
         rankedResults.push({

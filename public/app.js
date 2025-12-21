@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => console.error("Tüm il verileri çekilirken hata:", err));
 
-        // EFENDİM: 5'li Metrik Seçici Güncellemesi
+        //  5'li Metrik Seçici Güncellemesi
         const metricSelect = document.getElementById('analysis-metric-select');
         if (metricSelect) {
             metricSelect.innerHTML = `
@@ -722,7 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
             .then(result => {
                 if(result.success) {
-                    currentAnalysisTrendData = result.trendData; // 10 yıllık veriyi hafızaya al
+                    currentAnalysisTrendData = result.trendData; 
                     updateBentoGrid(result.data, result.trendData);
                 } else {
                     console.error("Analiz verisi alınamadı:", result.message);
@@ -769,10 +769,10 @@ document.addEventListener('DOMContentLoaded', () => {
             costEffElem.innerText = ratio > 1.5 ? "YÜKSEK" : (ratio > 0.8 ? "ORTA" : "DÜŞÜK");
         }
 
-        // --- EFENDİM: GRAFİKLERİ TETİKLE ---
+        // ---  GRAFİKLERİ TETİKLE ---
         const currentMetric = document.getElementById('analysis-metric-select').value;
         renderCityTrendChart(trendData, currentMetric);
-        // Beğenmediğiniz o iki boş kutuyu buradan da sildim efendim.
+        // 
     }
 
     function renderCityTrendChart(trendData, metricKey) {
@@ -781,7 +781,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d');
         if (cityTrendChartInstance) { cityTrendChartInstance.destroy(); }
 
-        // Efendim: Yetenek ve refah için dinamik hesaplama yolları (Trend verisi üzerinden)
+        //  Yetenek ve refah için dinamik hesaplama yolları (Trend verisi üzerinden)
         const dataSet = trendData.map(d => {
             if (metricKey === 'yetenek_endeksi') {
                 return (d.muhendislik_fakulte_sayisi * 10) + (d.universite_ogrenci_sayisi / 1000);

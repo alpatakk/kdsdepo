@@ -451,7 +451,7 @@ header {
 }
 
 /* ========================================================================= */
-/* --- YENİ AKILLI ÖNERİ (3'LÜ KART) SİSTEMİ İÇİN EK STİLLER --- */
+/* --- AKILLI ÖNERİ 3'LÜ KART SİSTEMİ İÇİN EK STİLLER --- */
 /* ========================================================================= */
 
 .criteria-management-container {
@@ -560,7 +560,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 /* ========================================================================= */
-/* --- YENİLENMİŞ MODERN İL ANALİZ KARNESİ (BENTO GRID) --- */
+/* ---  MODERN İL ANALİZ KARNESİ  --- */
 /* ========================================================================= */
 
 .analysis-container {
@@ -608,7 +608,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* Sol Taraftaki Geniş Grafik Kartı */
 .bento-large {
-    grid-row: span 2; /* 2 satır boyunca uzanır */
+    grid-row: span 2; 
 }
 
 /* Başlıklar */
@@ -650,7 +650,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     width: 100% !important;
 }
 
-/* Cazibe Kartı Özel (En alt geniş kart) */
+/* Cazibe Kartı  */
 .cazibe-card {
     grid-column: span 2;
     background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
@@ -671,7 +671,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 /* Responsive Düzenleme: Tablet ve Mobil */
 @media (max-width: 1024px) {
     .bento-grid {
-        grid-template-columns: 1fr; /* Tek sütuna düşer */
+        grid-template-columns: 1fr; 
     }
     .bento-large {
         grid-row: span 1;
@@ -688,7 +688,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 /* ==========================================================================
-   YENİ: SIDEBAR ETKİLEŞİM VE İL LİSTESİ STİLLERİ
+    SIDEBAR ETKİLEŞİM VE İL LİSTESİ STİLLERİ
    ========================================================================== */
 
 .sidebar-search-container {
@@ -755,7 +755,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 /* ========================================================================= */
-/* --- YENİ: ZAMAN TÜNELİ (KRONOLOJİ) ÖZEL STİLLERİ --- */
+/* --- : ZAMAN TÜNELİ İ --- */
 /* ========================================================================= */
 
 .timeline-wrapper {
@@ -837,7 +837,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 /* ========================================================================= */
-/* --- EFENDİM: YENİ EKLEDİĞİMİZ SLIDER VE ETİKET STİLLERİ --- */
+/* ---  SLIDER VE ETİKET STİLLERİ --- */
 /* ========================================================================= */
 
 .slider-header {
@@ -865,7 +865,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     text-align: center;
 }
 
-/* Slider Gradient Arka Planı (Kullanıcıya baskıyı hissettirir) */
+/* Slider Gradient Arka Planı  */
 input[type="range"].pref-slider {
     background: linear-gradient(to right, #e2e8f0 0%, #cbd5e1 100%);
 }
@@ -877,7 +877,7 @@ input[type="range"]:active::-webkit-slider-thumb {
 }
 
 /* ========================================================================= */
-/* --- EFENDİM: EK OLARAK SEKTÖREL ROZET VE ÖNERİ KARTI DÜZENLEMELERİ --- */
+/* ---  SEKTÖREL ROZET VE ÖNERİ KARTI DÜZENLEMELERİ --- */
 /* ========================================================================= */
 
 .sector-badge {
@@ -906,7 +906,7 @@ input[type="range"]:active::-webkit-slider-thumb {
 }
 
 /* ========================================================================= */
-/* --- EFENDİM: YENİ İL KARNESİ GRAFİK VE STAT ALANLARI İÇİN EKLEMELER --- */
+/* grafik ve stat --- */
 /* ========================================================================= */
 
 /* Grafik kutularının içindeki canvas boyutları */

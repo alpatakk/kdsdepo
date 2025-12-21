@@ -106,7 +106,7 @@ exports.getProvinces = (req, res) => {
     });
 };
 
-// --- YENİ EKLENEN: TÜRKİYE KRONOLOJİSİ (ZAMAN TÜNELİ) ---
+// ---  TÜRKİYE KRONOLOJİSİ (ZAMAN TÜNELİ) ---
 exports.getTimeline = (req, res) => {
     const sql = "SELECT * FROM turkiye_kronolojisi ORDER BY yil DESC, id DESC";
     db.query(sql, (err, results) => {
