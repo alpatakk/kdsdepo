@@ -6,6 +6,9 @@ const kdsLogic = require('../kds_logic');
 // --- GLOBAL YARDIMCI FONKSİYONLAR ---
 const getNum = (value) => parseFloat(value) || 0;
 
+/**
+ * Efendim, il isimlerini haritadaki (SVG) ID formatına çeviren kritik fonksiyon.
+ */
 function toSVGId(text) {
     if (!text) return '';
     text = text.trim();
@@ -97,7 +100,7 @@ function fetchProvinceData(callback) {
     });
 }
 
-// --- EXPORT EDİLEN API FONKSİYONLARI ---
+// --- API FONKSİYONLARI ---
 
 exports.getProvinces = (req, res) => {
     fetchProvinceData((error, provinces) => {
@@ -106,7 +109,6 @@ exports.getProvinces = (req, res) => {
     });
 };
 
-// ---  TÜRKİYE KRONOLOJİSİ (ZAMAN TÜNELİ) ---
 exports.getTimeline = (req, res) => {
     const sql = "SELECT * FROM turkiye_kronolojisi ORDER BY yil DESC, id DESC";
     db.query(sql, (err, results) => {
@@ -159,8 +161,6 @@ exports.updateProvince = (req, res) => {
         ortalama_metrekare_kira: getNum(data.pazar_ve_maliyet.ortalama_metrekare_kira),
         startup_sayisi: getNum(data.pazar_ve_maliyet.startup_sayisi),
         ihracat_hacmi_milyon_usd: getNum(data.pazar_ve_maliyet.ihracat_hacmi_milyon_usd),
-        yabanci_yatirim_endeksi: 0, 
-        kamu_tesvik_skoru: 0,
         toplam_nufus: getNum(data.demografi.toplam_nufus),
         nufus_artis_hizi: getNum(data.demografi.nufus_artis_hizi),
         ortalama_hane_geliri: getNum(data.demografi.ortalama_hane_geliri)
@@ -215,7 +215,11 @@ exports.getCustomRecommend = (req, res) => {
     fetchProvinceData((error, provinces) => {
         if (error || !provinces) return res.status(500).json({ success: false });
         const result = kdsLogic.calculateCustomRecommendation(provinces, req.body); 
-        res.json({ success: true, rankedProvinces: result.rankedResults.map(r => ({ id: r.id, value: r.score })), topProvincesWithDetails: result.topProvincesWithDetails });
+        res.json({ 
+            success: true, 
+            rankedProvinces: result.rankedResults.map(r => ({ id: r.id, value: r.score })), 
+            topProvincesWithDetails: result.topProvincesWithDetails 
+        });
     });
 };
 
@@ -234,9 +238,62 @@ exports.getCityAnalysis = (req, res) => {
 
     db.promise().query(q1, [cityName]).then(([r1]) => {
         return db.promise().query(q2, [cityName, cityName]).then(([r2]) => {
+            if(!r1[0]) return res.json({ success: false, message: "İl bulunamadı." });
             const data = r1[0];
-            data.cazibe_yorumu = data.genel_cazibe_puani >= 70 ? "Stratejik Yatırım Bölgesi" : (data.genel_cazibe_puani >= 50 ? "Yükselen Ekonomik Merkez" : "Gelişim Potansiyeli");
+            data.cazibe_yorumu = data.genel_cazibe_puani >= 75 ? "Stratejik Yatırım Bölgesi" : (data.genel_cazibe_puani >= 50 ? "Yükselen Ekonomik Merkez" : "Gelişim Potansiyeli");
             res.json({ success: true, data, trendData: r2 });
         });
     }).catch(err => res.json({ success: false, message: err.message }));
+};
+
+// === GÜNCELLENMİŞ STRATEJİK ÖZET VERİLERİ ===
+exports.getSummaryData = (req, res) => {
+    getDynamicWeights(weights => {
+        fetchProvinceData((error, provinces) => {
+            if (error || !provinces) return res.status(500).json({ success: false, message: 'Özet verileri çekilemedi.' });
+
+            const thematicResult = kdsLogic.calculateSmartScoreAndComment(provinces, weights, 'genel_cazibe');
+            
+            // Efendim, rankedList artık 0-100 ölçeğinde puanlar içeriyor
+            const rankedList = thematicResult.rankedProvinces.map(rp => {
+                const p = provinces.find(prov => prov.id === rp.id);
+                return {
+                    ad: p.ad,
+                    nufus: p.demografi.toplam_nufus,
+                    score: rp.value 
+                };
+            }).sort((a, b) => b.score - a.score);
+
+            const top5 = rankedList.slice(0, 5);
+
+            const sqlTrend = "SELECT yil, SUM(ihracat_hacmi_milyon_usd) as toplam_ihracat FROM iller_gecmis GROUP BY yil ORDER BY yil ASC";
+            db.query(sqlTrend, (err, trendResults) => {
+                const timelineSummary = trendResults || [];
+                const topCity = top5[0].ad;
+                const totalAvg = thematicResult.rankedProvinces.reduce((a, b) => a + b.value, 0) / provinces.length;
+                
+                let smartNote = `Efendim, sistem analizine göre mevcut kriterler ışığında **${topCity}** ili yatırım cazibesi bakımından lider konumdadır. `;
+                smartNote += `Türkiye genel ortalaması **${totalAvg.toFixed(2)}** puan seviyesindedir. `;
+                
+                if (timelineSummary.length > 1) {
+                    const lastYear = timelineSummary[timelineSummary.length - 1].toplam_ihracat;
+                    const prevYear = timelineSummary[timelineSummary.length - 2].toplam_ihracat;
+                    const diff = ((lastYear - prevYear) / prevYear * 100).toFixed(1);
+                    smartNote += `Ulusal ihracat hacminde son dönemde %${diff > 0 ? '+' : ''}${diff} oranında bir hareketlilik gözlemlenmektedir.`;
+                }
+
+                res.json({
+                    success: true,
+                    summary: {
+                        topCity: topCity,
+                        avgScore: parseFloat(totalAvg.toFixed(2)),
+                        top5: top5,
+                        fullList: rankedList,
+                        timeline: timelineSummary,
+                        insight: smartNote
+                    }
+                });
+            });
+        });
+    });
 };

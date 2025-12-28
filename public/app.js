@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const mapView = document.getElementById('map-view');
     const chartsView = document.getElementById('charts-view');
     
+    // === YENİ: GENEL ÖZET VIEW ELEMENTLERİ (EKLEME) ===
+    const showSummaryViewBtn = document.getElementById('show-summary-view-btn');
+    const summaryView = document.getElementById('summary-view');
+
     // KARŞILAŞTIRMA EKRANI ELEMENTLERİ
     const showCompareViewBtn = document.getElementById('show-compare-view-btn');
     const compareView = document.getElementById('compare-view');
@@ -48,6 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const showTimelineViewBtn = document.getElementById('show-timeline-view-btn');
     const timelineView = document.getElementById('timeline-view');
     const timelineListContainer = document.getElementById('timeline-list');
+
+    // === YENİ: SIDEBAR GRAFİK INSTANCE'LARI (EKLEME) ===
+    let sidebarDonutInstance = null;
+    let sidebarCazibeInstance = null;
+    let sidebarTrendInstance = null;
 
     let currentCriteriaData = []; 
 
@@ -83,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Harita elementlerine erişim için global değişkenler
     let element, info, legend;
     
-    // YENİ EKLENEN: ÖNERİ MODAL ELEMENTLERİ
+    // YENİ EKLENEN: ÖNERİ MODAL ELEMENTLERİ (HTML'de varsa)
     const recommendationModal = document.getElementById('recommendation-modal');
     const recommendationForm = document.getElementById('recommendation-form');
     const recommendationResultsDiv = document.getElementById('recommendation-results');
@@ -249,6 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
         criteriaView.classList.remove('active'); 
         analysisView.classList.remove('active'); 
         timelineView.classList.remove('active'); 
+        if(summaryView) summaryView.classList.remove('active'); // === YENİ EKLEME ===
+
         menuButtons.forEach(btn => btn.classList.remove('active'));
 
         mapView.style.display = 'none';
@@ -257,6 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
         criteriaView.style.display = 'none';
         analysisView.style.display = 'none'; 
         timelineView.style.display = 'none'; 
+        if(summaryView) summaryView.style.display = 'none'; // === YENİ EKLEME ===
         
         const viewToShow = document.getElementById(viewIdToShow);
         if (viewToShow) {
@@ -274,6 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
             populateMetricSelectionList();
         } else if (viewIdToShow === 'timeline-view') {
             fetchTimelineData(); 
+        } else if (viewIdToShow === 'summary-view') {
+            initSidebarSummary(); // === YENİ EKLEME: View açıldığında verileri yükle ===
         }
     }
 
@@ -312,6 +326,11 @@ document.addEventListener('DOMContentLoaded', () => {
         showCriteriaViewBtn.addEventListener('click', () => showView('criteria-view'));
         showAnalysisViewBtn.addEventListener('click', () => showView('analysis-view')); 
         showTimelineViewBtn.addEventListener('click', () => showView('timeline-view')); 
+        
+        // === YENİ: ÖZET SAYFASI BUTON TETİKLEYİCİSİ ===
+        if(showSummaryViewBtn) {
+            showSummaryViewBtn.addEventListener('click', () => showView('summary-view'));
+        }
 
         fetch('/api/provinces')
             .then(res => res.json())
@@ -337,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => console.error("Tüm il verileri çekilirken hata:", err));
 
-        //  5'li Metrik Seçici Güncellemesi
         const metricSelect = document.getElementById('analysis-metric-select');
         if (metricSelect) {
             metricSelect.innerHTML = `
@@ -368,6 +386,93 @@ document.addEventListener('DOMContentLoaded', () => {
                 strategyButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
             });
+        });
+    }
+
+    // === YENİ: ADAM AKILLI STRATEJİK ÖZET VERİ YÜKLEME (EKLEME) ===
+    function initSidebarSummary() {
+        fetch('/api/summary')
+            .then(res => res.json())
+            .then(result => {
+                if(result.success) {
+                    const s = result.summary;
+                    
+                    // 5. En Yüksek Puanlı İl (Üst KPI)
+                    document.getElementById('kpi-top-city').innerText = s.topCity;
+                    document.getElementById('kpi-avg-score').innerText = s.avgScore;
+
+                    // 1. En İyi 5 İl Grafiği (Bar Chart)
+                    renderSidebarCazibeChart(s.top5);
+                    
+                    // 2. Zaman Çizelgesi Özeti (Line Chart)
+                    renderSidebarTrendChart(s.timeline);
+
+                    // 3. Mini İller Tablosu
+                    renderSummaryMiniTable(s.fullList);
+
+                    // 4. Akıllı Not (AI Insight)
+                    document.getElementById('ai-summary-note').innerHTML = `<em>Efendim, analizimiz şunu gösteriyor:</em><br><strong>${s.insight}</strong>`;
+                }
+            });
+    }
+
+    function renderSummaryMiniTable(fullList) {
+        const tableBody = document.querySelector('#summary-province-table tbody');
+        if(!tableBody) return;
+        tableBody.innerHTML = fullList.map(p => `
+            <tr>
+                <td style="font-weight:700;">${p.ad}</td>
+                <td>${p.nufus.toLocaleString('tr-TR')}</td>
+                <td><span class="bento-badge" style="background:#e7f1ff; color:#007bff; font-weight:800;">${p.score}</span></td>
+            </tr>
+        `).join('');
+    }
+
+    function renderSidebarCazibeChart(data) {
+        const ctx = document.getElementById('sidebar-cazibe-chart').getContext('2d');
+        if(sidebarCazibeInstance) sidebarCazibeInstance.destroy();
+        sidebarCazibeInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.map(d => d.ad),
+                datasets: [{
+                    label: 'Yatırım Puanı',
+                    data: data.map(d => d.score),
+                    backgroundColor: '#3b82f6',
+                    borderRadius: 8
+                }]
+            },
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false, 
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } } }
+            }
+        });
+    }
+
+    function renderSidebarTrendChart(data) {
+        const ctx = document.getElementById('sidebar-trend-chart').getContext('2d');
+        if(sidebarTrendInstance) sidebarTrendInstance.destroy();
+        sidebarTrendInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map(d => d.yil),
+                datasets: [{
+                    label: 'Ulusal İhracat ($)',
+                    data: data.map(d => d.toplam_ihracat),
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5
+                }]
+            },
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false,
+                scales: { y: { grid: { color: '#f1f5f9' } } }
+            }
         });
     }
 
@@ -769,10 +874,8 @@ document.addEventListener('DOMContentLoaded', () => {
             costEffElem.innerText = ratio > 1.5 ? "YÜKSEK" : (ratio > 0.8 ? "ORTA" : "DÜŞÜK");
         }
 
-        // ---  GRAFİKLERİ TETİKLE ---
         const currentMetric = document.getElementById('analysis-metric-select').value;
         renderCityTrendChart(trendData, currentMetric);
-        // 
     }
 
     function renderCityTrendChart(trendData, metricKey) {
@@ -781,7 +884,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d');
         if (cityTrendChartInstance) { cityTrendChartInstance.destroy(); }
 
-        //  Yetenek ve refah için dinamik hesaplama yolları (Trend verisi üzerinden)
         const dataSet = trendData.map(d => {
             if (metricKey === 'yetenek_endeksi') {
                 return (d.muhendislik_fakulte_sayisi * 10) + (d.universite_ogrenci_sayisi / 1000);
@@ -966,6 +1068,354 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- UYGULAMA BAŞLANGICI ---
+    // === YENİ: ADAM AKILLI STRATEJİK ÖZET VERİ YÜKLEME (EKLEME) ===
+    function initSidebarSummary() {
+        fetch('/api/summary')
+            .then(res => res.json())
+            .then(result => {
+                if(result.success) {
+                    const s = result.summary;
+                    
+                    // 5. En Yüksek Puanlı İl (Üst KPI)
+                    document.getElementById('kpi-top-city').innerText = s.topCity;
+                    document.getElementById('kpi-avg-score').innerText = s.avgScore;
+
+                    // 1. En İyi 5 İl Grafiği (Sütun Grafiği)
+                    renderSummaryBest5Chart(s.top5);
+                    
+                    // 2. Zaman Çizelgesi Özeti (Çizgi Grafik)
+                    renderSummaryTimelineChart(s.timeline);
+
+                    // 3. Mini İller Tablosu
+                    renderSummaryMiniTable(s.fullList);
+
+                    // 4. Akıllı Not (AI Insight)
+                    document.getElementById('ai-summary-note').innerHTML = `<em>Efendim, analizimiz şunu gösteriyor:</em><br><strong>${s.insight}</strong>`;
+                }
+            });
+    }
+
+    function renderSummaryMiniTable(fullList) {
+        const tableBody = document.querySelector('#summary-province-table tbody');
+        if(!tableBody) return;
+        tableBody.innerHTML = fullList.map(p => `
+            <tr>
+                <td style="font-weight:700;">${p.ad}</td>
+                <td>${p.nufus.toLocaleString('tr-TR')}</td>
+                <td><span class="bento-badge" style="background:#e7f1ff; color:#007bff; font-weight:800;">${p.score}</span></td>
+            </tr>
+        `).join('');
+    }
+
+    function renderSummaryBest5Chart(data) {
+        const canvas = document.getElementById('sidebar-cazibe-chart');
+        if(!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if(sidebarCazibeInstance) sidebarCazibeInstance.destroy();
+        sidebarCazibeInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.map(d => d.ad),
+                datasets: [{
+                    label: 'Yatırım Puanı',
+                    data: data.map(d => d.score),
+                    backgroundColor: '#3b82f6',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                indexAxis: 'y', 
+                responsive: true, 
+                maintainAspectRatio: false, 
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } } }
+            }
+        });
+    }
+
+    function renderSummaryTimelineChart(data) {
+        const canvas = document.getElementById('sidebar-trend-chart');
+        if(!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if(sidebarTrendInstance) sidebarTrendInstance.destroy();
+        sidebarTrendInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map(d => d.yil),
+                datasets: [{
+                    label: 'Ulusal İhracat ($)',
+                    data: data.map(d => d.toplam_ihracat),
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5
+                }]
+            },
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false,
+                scales: { y: { grid: { color: '#f1f5f9' } } }
+            }
+        });
+    }
+
+    function updateSliderLabels(slider) {
+        const val = parseInt(slider.value);
+        const targetId = slider.id.replace('sim_', 'val_');
+        const displaySpan = document.getElementById(targetId);
+        if (!displaySpan) return;
+
+        let text = "";
+        let color = "";
+
+        if (slider.id === 'sim_bonus') {
+            if (val < 25) { text = "Yok / Zayıf"; color = "#6c757d"; }
+            else if (val < 50) { text = "Standart"; color = "#28a745"; }
+            else if (val < 75) { text = "Potansiyel Odaklı"; color = "#007bff"; }
+            else { text = "Maksimum Fırsat"; color = "#6f42c1"; }
+        } else {
+            if (val < 20) { text = "Düşük Öncelik"; color = "#95a5a6"; }
+            else if (val < 40) { text = "Orta-Düşük"; color = "#7f8c8d"; }
+            else if (val < 60) { text = "Dengeli"; color = "#2ecc71"; }
+            else if (val < 80) { text = "Önemli"; color = "#f39c12"; }
+            else { text = "Kritik"; color = "#e74c3c"; }
+        }
+
+        displaySpan.innerText = text;
+        displaySpan.style.color = color;
+        displaySpan.style.borderColor = color;
+    }
+
+
+    // --- HARİTA YÖNETİCİ PANELİ BUTONLARINI BAŞLATMA ---
+    function initAdminPanelButtons(clearPanel = false) {
+        const adminPanel = document.getElementById('admin-panel');
+        if (!adminPanel) return;
+
+        if (clearPanel) {
+            adminPanel.innerHTML = `
+                <h3>Raporlama Seçenekleri</h3>
+                <div class="report-buttons">
+                    <button data-report="teknoloji_ofisi">Teknoloji Ofisi</button>
+                    <button data-report="lojistik_depo">Lojistik Üs</button>
+                    <button data-report="genel_cazibe">Genel Cazibe</button>
+                    <button data-report="demografi_pazar">Demografi & Pazar</button> 
+                    <button data-report="reset" class="reset-btn">Sıfırla</button>
+                </div>
+            `;
+        }
+        
+        const reportButtons = adminPanel.querySelectorAll('button');
+        reportButtons.forEach(button => {
+            button.removeEventListener('click', handleReportButtonClick); 
+            button.addEventListener('click', handleReportButtonClick);
+        });
+    }
+
+    function handleReportButtonClick(event) {
+        const reportType = event.currentTarget.dataset.report;
+        if (reportType === 'reset') {
+            resetMapColors();
+        } else {
+            generateReport(reportType);
+        }
+    }
+
+
+    // --- HARİTA FONKSİYONU ---
+    function initMap(userRole) {
+        let activeProvinceId = null; 
+        const mapPlaceholder = document.getElementById('map-container');
+
+        if (mapPlaceholder.querySelector('svg')) {
+             const adminPanelCheck = document.getElementById('admin-panel');
+             if (userRole === 'admin') adminPanelCheck.style.display = 'block';
+             else adminPanelCheck.style.display = 'none';
+             return;
+        }
+        
+        fetch('map.svg')
+            .then(response => response.text())
+            .then(svgData => {
+                mapPlaceholder.innerHTML = svgData;
+                
+                element = document.querySelector('#svg-turkiye-haritasi');
+                info = document.querySelector('.il-isimleri');
+                const dataEntryModal = document.getElementById('data-entry-modal');
+                const dataEntryTitle = document.getElementById('data-entry-title');
+                const dataEntryForm = document.getElementById('data-entry-form');
+                const closeDataEntryModalBtn = dataEntryModal.querySelector('.close-btn');
+                const adminPanel = document.getElementById('admin-panel');
+                legend = document.getElementById('legend');
+
+                if (!element || !info || !legend) { return; }
+
+                if (userRole === 'admin') {
+                    adminPanel.style.display = 'block';
+                    initAdminPanelButtons(true);
+                }
+                
+                element.addEventListener('mouseover', function (event) { if (event.target.tagName === 'path' && event.target.parentNode.getAttribute('data-iladi')) { info.style.display = 'block'; info.innerHTML = `<div>${event.target.parentNode.getAttribute('data-iladi')}</div>`; } });
+                element.addEventListener('mousemove', function (event) { info.style.top = (event.pageY + 25) + 'px'; info.style.left = event.pageX + 'px'; });
+                element.addEventListener('mouseout', function (event) { info.style.display = 'none'; });
+
+                element.addEventListener('click', function (event) {
+                    if (event.target.tagName === 'path' && event.target.parentNode.getAttribute('data-iladi')) {
+                        const parent = event.target.parentNode;
+                        const ilAdi = parent.getAttribute('data-iladi');
+                        const provinceIdSVG = parent.getAttribute('id');
+                        
+                        activeProvinceId = provinceIdSVG; 
+                        
+                        fetchCityAnalysisData(ilAdi);
+                        showView('analysis-view');
+                        
+                        if (userRole === 'data_entry' && mapView.classList.contains('active')) {
+                            dataEntryTitle.textContent = `${ilAdi} İçin Veri Gir`;
+                            dataEntryForm.reset();
+                            dataEntryModal.style.display = 'flex';
+                            dataEntryForm.dataset.provinceName = ilAdi;
+                        }
+                    }
+                });
+                
+                dataEntryForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const ilAdi = dataEntryForm.dataset.provinceName;
+                    if(!ilAdi) { alert("İl adı bulunamadı."); return; }
+
+                    const dataToSend = {
+                        provinceId: activeProvinceId,
+                        provinceName: ilAdi,
+                        data: {
+                            insan_kaynaklari: {
+                                muhendislik_fakulte_sayisi: parseInt(document.getElementById('muhendislik_fakulte_sayisi').value) || 0,
+                                universite_ogrenci_sayisi: parseInt(document.getElementById('universite_ogrenci_sayisi').value) || 0,
+                                teknopark_sayisi: parseInt(document.getElementById('teknopark_sayisi').value) || 0,
+                                beyin_gocu_endeksi: parseInt(document.getElementById('beyin_gocu_endeksi').value) || 0,
+                                yabanci_dil_orani: parseFloat(document.getElementById('yabanci_dil_orani').value) || 0
+                            },
+                            lojistik_yasam_kalitesi: {
+                                havalimani_tipi: document.getElementById('havalimani_tipi').value,
+                                liman_var_mi: document.getElementById('liman_var_mi').value === 'true',
+                                yol_kalite_skoru: parseInt(document.getElementById('yol_kalite_skoru').value) || 0,
+                                hastane_yatak_kapasitesi: parseFloat(document.getElementById('hastane_yatak_kapasitesi').value) || 0,
+                                yesil_alan_orani: parseInt(document.getElementById('yesil_alan_orani').value) || 0
+                            },
+                            pazar_ve_maliyet: {
+                                osb_sayisi: parseInt(document.getElementById('osb_sayisi').value) || 0,
+                                tesvik_derecesi: parseInt(document.getElementById('tesvik_derecesi').value) || 0,
+                                ortalama_metrekare_kira: parseInt(document.getElementById('ortalama_metrekare_kira').value) || 0,
+                                startup_sayisi: parseInt(document.getElementById('startup_sayisi').value) || 0,
+                                ihracat_hacmi_milyon_usd: parseInt(document.getElementById('ihracat_hacmi_milyon_usd').value) || 0
+                            },
+                            demografi: {
+                                toplam_nufus: parseInt(document.getElementById('toplam_nufus').value) || 0,
+                                nufus_artis_hizi: parseFloat(document.getElementById('nufus_artis_hizi').value) || 0,
+                                ortalama_hane_geliri: parseInt(document.getElementById('ortalama_hane_geliri').value) || 0
+                            }
+                        }
+                    };
+
+                    fetch('/api/update-province', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(dataToSend),
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            alert(`${ilAdi} için veriler başarıyla kaydedildi!`);
+                            dataEntryModal.style.display = 'none';
+                        } else { alert('Veriler kaydedilirken bir hata oluştu.'); }
+                    })
+                    .catch(error => { console.error('Kaydetme hatası:', error); });
+                });
+
+                closeDataEntryModalBtn.addEventListener('click', () => { dataEntryModal.style.display = 'none'; });
+                dataEntryModal.addEventListener('click', (event) => { if (event.target === dataEntryModal) { dataEntryModal.style.display = 'none'; } });
+            })
+            .catch(error => console.error('Harita SVG hatası:', error));
+    }
+
+    // --- GRAFİK OLUŞTURMA FONKSİYONLARI ---
+    function initCharts() {
+        renderPopulationChart(allProvincesData);
+        renderOsbChart(allProvincesData);
+        renderTesvikChart(allProvincesData);
+        renderIhracatChart(allProvincesData);
+        renderHavalimaniChart(allProvincesData);
+        renderGelirChart(allProvincesData);
+    }
+
+    function renderPopulationChart(provinces) {
+        if (populationChartInstance) { populationChartInstance.destroy(); }
+        const ctx = document.getElementById('population-chart').getContext('2d');
+        const sortedData = [...provinces].sort((a, b) => b.demografi.toplam_nufus - a.demografi.toplam_nufus).slice(0, 10);
+        const labels = sortedData.map(p => p.ad);
+        const data = sortedData.map(p => p.demografi.toplam_nufus);
+        populationChartInstance = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Toplam Nüfus', data, backgroundColor: '#3498db' }] }, options: { responsive: true, plugins: { legend: { display: false } } }});
+    }
+
+    function renderOsbChart(provinces) {
+        if (osbChartInstance) { osbChartInstance.destroy(); }
+        const ctx = document.getElementById('osb-chart').getContext('2d');
+        const sortedData = [...provinces].filter(p => p.pazar_ve_maliyet.osb_sayisi > 0).sort((a, b) => b.pazar_ve_maliyet.osb_sayisi - a.pazar_ve_maliyet.osb_sayisi).slice(0, 10);
+        const labels = sortedData.map(p => p.ad);
+        const data = sortedData.map(p => p.pazar_ve_maliyet.osb_sayisi);
+        osbChartInstance = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Organize Sanayi Bölgesi Sayısı', data, backgroundColor: '#2ecc71' }] }, options: { responsive: true, indexAxis: 'y', plugins: { legend: { display: false } } }});
+    }
+    
+    function renderTesvikChart(provinces) {
+        if (tesvikChartInstance) { tesvikChartInstance.destroy(); }
+        const ctx = document.getElementById('tesvik-chart').getContext('2d');
+        const tesvikGruplari = provinces.reduce((acc, province) => {
+            const derece = province.pazar_ve_maliyet.tesvik_derecesi;
+            const key = `${derece}. Bölge`;
+            acc[key] = (acc[key] || 0) + 1;
+            return acc;
+        }, {});
+        const labels = Object.keys(tesvikGruplari).sort();
+        const data = labels.map(label => tesvikGruplari[label]);
+        tesvikChartInstance = new Chart(ctx, { type: 'doughnut', data: { labels, datasets: [{ label: 'İl Sayısı', data, backgroundColor: ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#3498db', '#9b59b6'] }] }, options: { responsive: true }});
+    }
+    
+    function renderIhracatChart(provinces) {
+        if (ihracatChartInstance) { ihracatChartInstance.destroy(); }
+        const ctx = document.getElementById('ihracat-chart').getContext('2d');
+        const sortedData = [...provinces]
+            .filter(p => p.pazar_ve_maliyet.ihracat_hacmi_milyon_usd > 0)
+            .sort((a, b) => b.pazar_ve_maliyet.ihracat_hacmi_milyon_usd - a.pazar_ve_maliyet.ihracat_hacmi_milyon_usd)
+            .slice(0, 10);
+        const labels = sortedData.map(p => p.ad);
+        const data = sortedData.map(p => p.pazar_ve_maliyet.ihracat_hacmi_milyon_usd);
+        ihracatChartInstance = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'İhracat Hacmi (Milyon $)', data, backgroundColor: '#9b59b6' }] }, options: { responsive: true, indexAxis: 'y', plugins: { legend: { display: false } } }});
+    }
+
+    function renderHavalimaniChart(provinces) {
+        if (havalimaniChartInstance) { havalimaniChartInstance.destroy(); }
+        const ctx = document.getElementById('havalimani-chart').getContext('2d');
+        const havalimaniGruplari = provinces.reduce((acc, province) => {
+            const tip = province.lojistik_yasam_kalitesi.havalimani_tipi || "Yok";
+            acc[tip] = (acc[tip] || 0) + 1;
+            return acc;
+        }, {});
+        const labels = Object.keys(havalimaniGruplari);
+        const data = Object.values(havalimaniGruplari);
+        havalimaniChartInstance = new Chart(ctx, { type: 'pie', data: { labels, datasets: [{ label: 'İl Sayısı', data, backgroundColor: ['#3498db', '#bdc3c7', '#e74c3c' ] }] }, options: { responsive: true }});
+    }
+
+    function renderGelirChart(provinces) {
+        if (gelirChartInstance) { gelirChartInstance.destroy(); }
+        const ctx = document.getElementById('gelir-chart').getContext('2d');
+        const sortedData = [...provinces]
+            .sort((a, b) => b.demografi.ortalama_hane_geliri - a.demografi.ortalama_hane_geliri)
+            .slice(0, 10);
+        const labels = sortedData.map(p => p.ad);
+        const data = sortedData.map(p => p.demografi.ortalama_hane_geliri);
+        gelirChartInstance = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Ortalama Hane Geliri (dolar)', data, backgroundColor: '#e67e22' }] }, options: { responsive: true, indexAxis: 'y', plugins: { legend: { display: false } } }});
+    }
+
     showScreen('welcome');
 });

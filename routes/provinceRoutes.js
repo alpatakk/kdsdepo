@@ -21,6 +21,9 @@ router.get('/recommendation', provinceController.getRecommendation);
 // Yönetici raporlarını (Tematik) getirir
 router.get('/report/:reportType', provinceController.getReport);
 
+// === YENİ: SIDEBAR VE GENEL ÖZET VERİLERİNİ GETİRİR (EKLEME) ===
+router.get('/summary', provinceController.getSummaryData);
+
 // --- POST İSTEKLERİ ---
 // İl verilerini günceller (MySQL + JSON Yedek)
 router.post('/update-province', provinceController.updateProvince);

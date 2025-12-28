@@ -932,3 +932,89 @@ input[type="range"]:active::-webkit-slider-thumb {
     color: #0369a1;
     border: 1px solid #bae6fd;
 }
+
+/* ========================================================================= */
+/* === SADECE YENİ EKLENEN SIDEBAR ÖZET VE GRAFİK STİLLERİ (EN SONA EKLE) === */
+/* ========================================================================= */
+
+#side-menu:hover {
+    width: 280px !important; /* Grafiklerin sığması için hover genişliği artırıldı */
+}
+
+.sidebar-summary-section {
+    width: 100%;
+    padding: 20px 10px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: none; 
+}
+
+#side-menu:hover .sidebar-summary-section {
+    opacity: 1;
+    display: block;
+}
+
+.summary-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #ecf0f1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border-left: 4px solid #007bff;
+}
+
+.kpi-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 25px;
+    padding: 0 5px;
+}
+
+.kpi-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 5px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.kpi-value { 
+    font-size: 1.2rem; 
+    font-weight: 800; 
+    color: #3498db; 
+    display: block; 
+}
+
+.kpi-label { 
+    font-size: 0.65rem; 
+    color: #bdc3c7; 
+    font-weight: 600; 
+    margin-top: 4px;
+}
+
+.sidebar-chart-container {
+    margin-bottom: 25px;
+    padding: 15px 10px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-chart-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #95a5a6;
+    margin-bottom: 12px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* Grafiklerin Sidebar dışına taşmaması için kontrol */
+canvas[id^="sidebar-"] {
+    max-width: 100% !important;
+    height: auto !important;
+}

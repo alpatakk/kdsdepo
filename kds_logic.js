@@ -1,11 +1,11 @@
 // kds_logic.js
 const getNum = (value) => parseFloat(value) || 0;
 
-// YÜKSELTME FAKTÖRÜ: 
-const SCORE_BOOST_FACTOR = 1000; 
+// YÜKSELTME FAKTÖRÜ: Normalizasyon sonrası puanı ölçeklendirmek için 1 e çekildi.
+const SCORE_BOOST_FACTOR = 1; 
 
-// İYİMSERLİK FAKTÖRÜ: 
-const POSITIVE_BIAS = 10000; 
+// İYİMSERLİK FAKTÖRÜ: Taban puan rasyonelleştirildi.
+const POSITIVE_BIAS = 10; 
 
 // --- 81 İL İÇİN STRATEJİK SEKTÖR HARİTASI ---
 const PROVINCE_SECTOR_MAP = {
@@ -115,6 +115,28 @@ const THEMATIC_WEIGHTS = {
 };
 
 /**
+ * Normalizasyon için her kriterin maksimum değerini bulan yardımcı fonksiyon
+ */
+function findMaxValues(provinces, effectiveWeights) {
+    const maxValues = {};
+    for (const key in effectiveWeights) {
+        let max = 0;
+        provinces.forEach(p => {
+            let val = 0;
+            if (p.insan_kaynaklari.hasOwnProperty(key)) val = getNum(p.insan_kaynaklari[key]);
+            else if (p.pazar_ve_maliyet.hasOwnProperty(key)) val = getNum(p.pazar_ve_maliyet[key]);
+            else if (p.lojistik_yasam_kalitesi.hasOwnProperty(key)) val = getNum(p.lojistik_yasam_kalitesi[key]);
+            else if (p.demografi.hasOwnProperty(key)) val = getNum(p.demografi[key]);
+            
+            if (key === 'liman_var_mi') val = p.lojistik_yasam_kalitesi.liman_var_mi ? 1 : 0;
+            if (val > max) max = val;
+        });
+        maxValues[key] = max || 1; // 0'a bölünmeyi engellemek için
+    }
+    return maxValues;
+}
+
+/**
  * Haritadaki Raporlar İçin Mevcut Skorlama Mantığı
  */
 function calculateSmartScoreAndComment(provinces, weights, reportType = 'default') {
@@ -126,13 +148,17 @@ function calculateSmartScoreAndComment(provinces, weights, reportType = 'default
         effectiveWeights = THEMATIC_WEIGHTS[reportType];
     } else {
         effectiveWeights = { ...THEMATIC_WEIGHTS.DEFAULT_CRITERIA_MAP }; 
-        for (const key in weights) {
-            effectiveWeights[key] = weights[key];
+        if (weights) {
+            for (const key in weights) {
+                effectiveWeights[key] = weights[key];
+            }
         }
     }
 
+    const maxValues = findMaxValues(provinces, effectiveWeights);
+
     const rankedProvinces = provinces.map(p => {
-        let rawScore = 0; 
+        let normalizedRawScore = 0; 
         const rawContributions = [];
         
         for (const key in effectiveWeights) {
@@ -152,19 +178,23 @@ function calculateSmartScoreAndComment(provinces, weights, reportType = 'default
                 value = p.lojistik_yasam_kalitesi.liman_var_mi ? 1 : 0;
             }
             
-            const contributionValue = getNum(value) * weight;
+            // Veriyi normalize et (0-100 arasına çek)
+            const normalizedVal = (getNum(value) / maxValues[key]) * 100;
+            const contributionValue = normalizedVal * (weight / 100); 
             
             if (contributionValue < 0) {
-                rawScore += contributionValue * 0.5; 
+                normalizedRawScore += contributionValue * 0.5; 
                 rawContributions.push({ key: key, value: contributionValue, name: key.replace(/_/g, ' ') });
             } else {
-                rawScore += contributionValue; 
+                normalizedRawScore += contributionValue; 
                 rawContributions.push({ key: key, value: contributionValue, name: key.replace(/_/g, ' ') });
             }
         }
         
-        let finalScore = (rawScore * SCORE_BOOST_FACTOR) + POSITIVE_BIAS;
-        if (finalScore <= 0) finalScore = 1; 
+        // Final skor artık 0-100 bandında daha rasyonel
+        let finalScore = (normalizedRawScore * SCORE_BOOST_FACTOR) + POSITIVE_BIAS;
+        if (finalScore <= 0) finalScore = 1;
+        if (finalScore > 100) finalScore = 100; // Tavan puan sınırlaması
 
         const finalContributions = [];
         rawContributions.forEach(c => {
@@ -236,17 +266,7 @@ function calculateCustomRecommendation(provinces, preferences) {
         beyin_gocu_endeksi: -(getNum(preferences.goc) / 100)
     };
 
-    const maxValues = {};
-    Object.keys(weights).forEach(key => {
-        const vals = provinces.map(p => {
-            if (p.insan_kaynaklari.hasOwnProperty(key)) return p.insan_kaynaklari[key];
-            if (p.pazar_ve_maliyet.hasOwnProperty(key)) return p.pazar_ve_maliyet[key];
-            if (p.lojistik_yasam_kalitesi.hasOwnProperty(key)) return p.lojistik_yasam_kalitesi[key];
-            if (p.demografi.hasOwnProperty(key)) return p.demografi[key];
-            return 0;
-        });
-        maxValues[key] = Math.max(...vals) || 1;
-    });
+    const maxValues = findMaxValues(provinces, weights);
 
     const filteredProvinces = provinces.filter(p => {
         const pop = getNum(p.demografi.toplam_nufus);
@@ -292,6 +312,7 @@ function calculateCustomRecommendation(provinces, preferences) {
             else if (p.lojistik_yasam_kalitesi.hasOwnProperty(key)) rawValue = p.lojistik_yasam_kalitesi[key];
             else if (p.demografi.hasOwnProperty(key)) rawValue = p.demografi[key];
             
+            // Normalize edilmiş veri üzerinden ağırlıklı skor
             let normalizedValue = (getNum(rawValue) / maxValues[key]) * 100;
             let contributionValue = normalizedValue * weight;
 
@@ -301,9 +322,9 @@ function calculateCustomRecommendation(provinces, preferences) {
             contributions.push({ key: key, value: contributionValue, name: name });
         }
         
-        let finalScore = (normalizedTotalScore * modeMultiplier * 100) + POSITIVE_BIAS;
+        let finalScore = (normalizedTotalScore * modeMultiplier) + POSITIVE_BIAS;
+        if(finalScore > 100) finalScore = 100;
 
-        // sektör atama
         const investmentSector = identifyBestInvestmentSector(p.ad);
 
         rankedResults.push({
@@ -346,8 +367,70 @@ function calculateCustomRecommendation(provinces, preferences) {
     };
 }
 
+// =========================================================================================
+// === YENİ: SİDEBAR VE GENEL ÖZET İÇİN ANALİZ FONKSİYONLARI (EKLEME) ===
+// =========================================================================================
+
+function getTopCazibeProvinces(provinces) {
+    const results = calculateThematicReport(provinces, 'genel_cazibe');
+    return results.rankedProvinces
+        .map(rp => ({
+            ad: provinces.find(p => p.id === rp.id).ad,
+            score: rp.value
+        }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
+}
+
+function calculateRegionalAverages(provinces) {
+    const REGION_MAP = {
+        'Marmara': ['İstanbul', 'Bursa', 'Kocaeli', 'Tekirdağ', 'Sakarya', 'Çanakkale', 'Edirne', 'Kırklareli', 'Balıkesir', 'Yalova', 'Bilecik'],
+        'Ege': ['İzmir', 'Manisa', 'Aydın', 'Denizli', 'Muğla', 'Afyonkarahisar', 'Kütahya', 'Uşak'],
+        'İç Anadolu': ['Ankara', 'Konya', 'Kayseri', 'Eskişehir', 'Sivas', 'Kırıkkale', 'Aksaray', 'Karaman', 'Kırşehir', 'Niğde', 'Nevşehir', 'Yozgat', 'Çankırı'],
+        'Akdeniz': ['Antalya', 'Adana', 'Mersin', 'Hatay', 'Kahramanmaraş', 'Osmaniye', 'Isparta', 'Burdur'],
+        'Karadeniz': ['Samsun', 'Trabzon', 'Ordu', 'Giresun', 'Rize', 'Artvin', 'Gümüşhane', 'Bayburt', 'Düzce', 'Bolu', 'Zonguldak', 'Karabük', 'Bartın', 'Kastamonu', 'Sinop', 'Çorum', 'Amasya', 'Tokat'],
+        'Güneydoğu Anadolu': ['Gaziantep', 'Diyarbakır', 'Şanlıurfa', 'Mardin', 'Adıyaman', 'Batman', 'Siirt', 'Şırnak', 'Kilis'],
+        'Doğu Anadolu': ['Erzurum', 'Malatya', 'Van', 'Elazığ', 'Ağrı', 'Kars', 'Iğdır', 'Ardahan', 'Muş', 'Bingöl', 'Bitlis', 'Tunceli', 'Hakkari', 'Erzincan']
+    };
+
+    const thematicResults = calculateThematicReport(provinces, 'genel_cazibe').rankedProvinces;
+    const regionalScores = {};
+
+    Object.keys(REGION_MAP).forEach(region => {
+        const cityNames = REGION_MAP[region];
+        const scores = thematicResults
+            .filter(rp => {
+                const province = provinces.find(p => p.id === rp.id);
+                return province && cityNames.includes(province.ad);
+            })
+            .map(rp => rp.value);
+        
+        const avg = scores.length > 0 ? (scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+        regionalScores[region] = parseFloat(avg.toFixed(2));
+    });
+
+    return regionalScores;
+}
+
+function calculateTrendInvestmentScore(provinces, historicalData) {
+    const trendResults = provinces.map(p => {
+        const currentPop = getNum(p.demografi.toplam_nufus);
+        const currentExport = getNum(p.pazar_ve_maliyet.ihracat_hacmi_milyon_usd);
+        const pastFactor = historicalData && historicalData.length > 0 ? 1.15 : 1.0; 
+        
+        // Popülasyon ve ihracat üzerinden normalize edilmiş basit trend puanı
+        const trendScore = ((currentPop / 1000000) * 0.4 + (currentExport / 500) * 0.6) * pastFactor * 20 + POSITIVE_BIAS;
+        return { ad: p.ad, score: parseFloat(Math.min(100, trendScore).toFixed(2)) };
+    });
+
+    return trendResults.sort((a, b) => b.score - a.score).slice(0, 10);
+}
+
 module.exports = {
     calculateSmartScoreAndComment,
     calculateThematicReport,
-    calculateCustomRecommendation
+    calculateCustomRecommendation,
+    getTopCazibeProvinces,
+    calculateRegionalAverages,
+    calculateTrendInvestmentScore
 };
