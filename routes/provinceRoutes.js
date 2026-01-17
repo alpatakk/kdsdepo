@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const provinceController = require('../controllers/provinceController');
 
-// --- GET İSTEKLERİ ---
+
 // Bütün illeri listeler
 router.get('/provinces', provinceController.getProvinces);
 
@@ -21,10 +21,26 @@ router.get('/recommendation', provinceController.getRecommendation);
 // Yönetici raporlarını (Tematik) getirir
 router.get('/report/:reportType', provinceController.getReport);
 
-// === YENİ: SIDEBAR VE GENEL ÖZET VERİLERİNİ GETİRİR (EKLEME) ===
+// ===  SIDEBAR VE GENEL ÖZET VERİLERİNİ GETİRİR  ===
 router.get('/summary', provinceController.getSummaryData);
 
-// --- POST İSTEKLERİ ---
+
+// --- ANALİZ YÖNETİMİ (CRUD İŞLEMLERİ) ---
+
+// [READ] Tüm geçmiş analizleri listeleme
+router.get('/analiz', provinceController.listAnalizler);
+
+// [CREATE] Yeni bir analizi belleğe kaydetme
+router.post('/analiz', provinceController.saveAnaliz);
+
+// [UPDATE] Mevcut bir analizin durumunu güncelleme 
+router.patch('/analiz/:id', provinceController.patchAnaliz);
+
+// [DELETE] Belirli bir analizi sistemden temizleme 
+router.delete('/analiz/:id', provinceController.removeAnaliz);
+
+
+// --- DİĞER POST/GÜNCELLEME İSTEKLERİ ---
 // İl verilerini günceller (MySQL + JSON Yedek)
 router.post('/update-province', provinceController.updateProvince);
 

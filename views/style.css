@@ -755,7 +755,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 /* ========================================================================= */
-/* --- : ZAMAN TÜNELİ İ --- */
+/* --- : ZAMAN TÜNELİ  --- */
 /* ========================================================================= */
 
 .timeline-wrapper {
@@ -934,7 +934,7 @@ input[type="range"]:active::-webkit-slider-thumb {
 }
 
 /* ========================================================================= */
-/* === SADECE YENİ EKLENEN SIDEBAR ÖZET VE GRAFİK STİLLERİ (EN SONA EKLE) === */
+/* ===  SIDEBAR ÖZET VE GRAFİK STİLLERİ  === */
 /* ========================================================================= */
 
 #side-menu:hover {

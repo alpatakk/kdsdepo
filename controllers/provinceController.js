@@ -1,23 +1,7 @@
+const provinceService = require('../services/provinceService');
 const db = require('../db');
 const fs = require('fs');
 const path = require('path');
-const kdsLogic = require('../kds_logic');
-
-// --- GLOBAL YARDIMCI FONKSİYONLAR ---
-const getNum = (value) => parseFloat(value) || 0;
-
-/**
- * Efendim, il isimlerini haritadaki (SVG) ID formatına çeviren kritik fonksiyon.
- */
-function toSVGId(text) {
-    if (!text) return '';
-    text = text.trim();
-    return text
-        .replace(/ı/g, 'i').replace(/İ/g, 'i').replace(/Ş/g, 's').replace(/ş/g, 's')
-        .replace(/Ç/g, 'c').replace(/ç/g, 'c').replace(/Ğ/g, 'g').replace(/ğ/g, 'g')
-        .replace(/Ü/g, 'u').replace(/ü/g, 'u').replace(/Ö/g, 'o').replace(/ö/g, 'o')
-        .replace(/ /g, '_').toLowerCase();
-}
 
 // --- DİNAMİK KRİTER LİSTESİ ---
 const KDS_CRITERIA_MAP = {
@@ -33,6 +17,8 @@ const KDS_CRITERIA_MAP = {
 };
 
 // --- YARDIMCI VERİ FONKSİYONLARI ---
+const getNum = (value) => parseFloat(value) || 0;
+
 function getDynamicWeights(callback) {
     const sql = "SELECT kriter_adi, agirlik FROM kriterler";
     db.query(sql, (err, results) => {
@@ -51,72 +37,36 @@ function getDynamicWeights(callback) {
     });
 }
 
-function fetchProvinceData(callback) {
+function fetchRawData(callback) {
     const sql = "SELECT * FROM iller";
     db.query(sql, (mysqlErr, results) => {
         if (mysqlErr || !results || results.length === 0) {
-            console.warn("MySQL'den il verileri çekilemedi, JSON yedeği kullanılıyor.");
             const dbPath = path.join(__dirname, '..', 'database', 'provinces.json');
             fs.readFile(dbPath, 'utf8', (err, fileData) => {
                 if (err) return callback(new Error('JSON Veritabanı okunamadı.'), null);
                 callback(null, JSON.parse(fileData));
             });
         } else {
-            const formattedData = results.map(row => ({
-                id: toSVGId(row.il_adi),
-                ad: row.il_adi,
-                demografi: {
-                    toplam_nufus: getNum(row.toplam_nufus),
-                    nufus_artis_hizi: getNum(row.nufus_artis_hizi),
-                    ortalama_hane_geliri: getNum(row.ortalama_hane_geliri)
-                },
-                insan_kaynaklari: {
-                    muhendislik_fakulte_sayisi: getNum(row.muhendislik_fakulte_sayisi),
-                    universite_ogrenci_sayisi: getNum(row.universite_ogrenci_sayisi),
-                    teknopark_sayisi: getNum(row.teknopark_sayisi),
-                    beyin_gocu_endeksi: getNum(row.beyin_gocu_endeksi),
-                    yabanci_dil_orani: getNum(row.yabanci_dil_orani)
-                },
-                lojistik_yasam_kalitesi: {
-                    havalimani_tipi: row.havalimani_tipi, 
-                    liman_var_mi: getNum(row.liman_var_mi),
-                    yol_kalite_skoru: getNum(row.yol_kalite_skoru),
-                    hastane_yatak_kapasitesi: getNum(row.hastane_yatak_kapasitesi),
-                    yesil_alan_orani: getNum(row.yesil_alan_orani)
-                },
-                pazar_ve_maliyet: {
-                    osb_sayisi: getNum(row.osb_sayisi),
-                    tesvik_derecesi: getNum(row.tesvik_derecesi),
-                    ortalama_metrekare_kira: getNum(row.ortalama_metrekare_kira),
-                    startup_sayisi: getNum(row.startup_sayisi),
-                    ihracat_hacmi_milyon_usd: getNum(row.ihracat_hacmi_milyon_usd),
-                    yabanci_yatirim_endeksi: getNum(row.yabanci_yatirim_endeksi), 
-                    kamu_tesvik_skoru: getNum(row.kamu_tesvik_skoru)
-                },
-                genel_cazibe_puani: getNum(row.genel_cazibe_puani)
-            }));
-            callback(null, formattedData);
+            callback(null, results);
         }
     });
 }
 
-// --- API FONKSİYONLARI ---
+// --- API FONKSİYONLARI  ---
 
 exports.getProvinces = (req, res) => {
-    fetchProvinceData((error, provinces) => {
-        if (error || !provinces) return res.status(500).json({ success: false, message: 'Veri kaynağına ulaşılamadı.' });
-        res.json({ success: true, data: provinces });
+    fetchRawData((error, results) => {
+        if (error || !results) return res.status(500).json({ success: false, message: 'Veri kaynağına ulaşılamadı.' });
+        const data = provinceService.formatProvinces(results);
+        res.status(200).json({ success: true, data: data });
     });
 };
 
 exports.getTimeline = (req, res) => {
     const sql = "SELECT * FROM turkiye_kronolojisi ORDER BY yil DESC, id DESC";
     db.query(sql, (err, results) => {
-        if (err) {
-            console.error("Kronoloji hatası:", err);
-            return res.status(500).json({ success: false, message: 'Kronoloji verileri çekilemedi.' });
-        }
-        res.json({ success: true, data: results });
+        if (err) return res.status(500).json({ success: false, message: 'Kronoloji verileri çekilemedi.' });
+        res.status(200).json({ success: true, data: results });
     });
 };
 
@@ -131,7 +81,7 @@ exports.getKriterler = (req, res) => {
                 }
             });
         }
-        res.json({ success: true, data: Object.keys(finalCriteria).map(key => ({ 
+        res.status(200).json({ success: true, data: Object.keys(finalCriteria).map(key => ({ 
             key: key, 
             weight: finalCriteria[key].defaultWeight, 
             name: finalCriteria[key].name,
@@ -144,7 +94,6 @@ exports.updateProvince = (req, res) => {
     const { provinceId, provinceName, data } = req.body; 
     if (!provinceId || !provinceName || !data) return res.status(400).json({ success: false, message: 'Eksik bilgi gönderildi.' });
 
-    const ilAdi = provinceName;
     const updateData = {
         muhendislik_fakulte_sayisi: getNum(data.insan_kaynaklari.muhendislik_fakulte_sayisi),
         universite_ogrenci_sayisi: getNum(data.insan_kaynaklari.universite_ogrenci_sayisi),
@@ -152,7 +101,7 @@ exports.updateProvince = (req, res) => {
         beyin_gocu_endeksi: getNum(data.insan_kaynaklari.beyin_gocu_endeksi),
         yabanci_dil_orani: getNum(data.insan_kaynaklari.yabanci_dil_orani),
         havalimani_tipi: data.lojistik_yasam_kalitesi.havalimani_tipi,
-        liman_var_mi: data.lojistik_yasam_kalitesi.liman_var_mi === true || data.lojistik_yasam_kalitesi.liman_var_mi === 'true' ? 1 : 0, 
+        liman_var_mi: (data.lojistik_yasam_kalitesi.liman_var_mi === true || data.lojistik_yasam_kalitesi.liman_var_mi === 'true') ? 1 : 0, 
         yol_kalite_skoru: getNum(data.lojistik_yasam_kalitesi.yol_kalite_skoru),
         hastane_yatak_kapasitesi: getNum(data.lojistik_yasam_kalitesi.hastane_yatak_kapasitesi),
         yesil_alan_orani: getNum(data.lojistik_yasam_kalitesi.yesil_alan_orani),
@@ -166,17 +115,17 @@ exports.updateProvince = (req, res) => {
         ortalama_hane_geliri: getNum(data.demografi.ortalama_hane_geliri)
     };
 
-    db.query(`UPDATE iller SET ? WHERE il_adi = ?`, [updateData, ilAdi], (mysqlErr, result) => {
-        if (!mysqlErr && result && result.affectedRows > 0) return res.json({ success: true, message: `${ilAdi} başarıyla güncellendi (MySQL).` });
+    db.query(`UPDATE iller SET ? WHERE il_adi = ?`, [updateData, provinceName], (mysqlErr, result) => {
+        if (!mysqlErr && result && result.affectedRows > 0) return res.status(200).json({ success: true, message: `${provinceName} başarıyla güncellendi (MySQL).` });
         
         const dbPath = path.join(__dirname, '..', 'database', 'provinces.json');
         fs.readFile(dbPath, 'utf8', (err, fileData) => {
             if (err) return res.status(500).json({ success: false, message: 'Veritabanı okunamadı.' });
             let provinces = JSON.parse(fileData);
             const idx = provinces.findIndex(p => p.id === provinceId);
-            if (idx === -1) provinces.push({ id: provinceId, ad: ilAdi, ...data });
+            if (idx === -1) provinces.push({ id: provinceId, ad: provinceName, ...data });
             else provinces[idx] = { ...provinces[idx], ...data };
-            fs.writeFile(dbPath, JSON.stringify(provinces, null, 2), 'utf8', () => res.json({ success: true, message: `${ilAdi} JSON yedeğine yazıldı.` }));
+            fs.writeFile(dbPath, JSON.stringify(provinces, null, 2), 'utf8', () => res.status(200).json({ success: true, message: `${provinceName} JSON yedeğine yazıldı.` }));
         });
     });
 };
@@ -191,11 +140,11 @@ exports.updateKriterler = (req, res) => {
             if (result && result.affectedRows === 0) {
                 db.query(`INSERT INTO kriterler (kriter_adi, agirlik) VALUES (?, ?)`, [item.key, item.weight], () => {
                     completed++;
-                    if (completed === updates.length) res.json({ success: true });
+                    if (completed === updates.length) res.status(200).json({ success: true });
                 });
             } else {
                 completed++;
-                if (completed === updates.length) res.json({ success: true });
+                if (completed === updates.length) res.status(200).json({ success: true });
             }
         });
     });
@@ -203,31 +152,43 @@ exports.updateKriterler = (req, res) => {
 
 exports.getRecommendation = (req, res) => {
     getDynamicWeights(weights => {
-        fetchProvinceData((error, provinces) => {
-            if (error || !provinces) return res.status(500).json({ success: false });
-            const result = kdsLogic.calculateSmartScoreAndComment(provinces, weights, 'default');
-            res.json({ success: true, bestProvince: result.bestProvince, comment: result.comment, allScores: result.rankedProvinces });
+        fetchRawData(async (error, results) => {
+            if (error || !results) return res.status(500).json({ success: false });
+            try {
+                const result = await provinceService.getSmartAnalysis(results, weights);
+                res.status(200).json({ success: true, bestProvince: result.bestProvince, allScores: result.rankedProvinces });
+            } catch (err) {
+                res.status(400).json({ success: false, message: err.message });
+            }
         });
     });
 };
 
 exports.getCustomRecommend = (req, res) => {
-    fetchProvinceData((error, provinces) => {
-        if (error || !provinces) return res.status(500).json({ success: false });
-        const result = kdsLogic.calculateCustomRecommendation(provinces, req.body); 
-        res.json({ 
-            success: true, 
-            rankedProvinces: result.rankedResults.map(r => ({ id: r.id, value: r.score })), 
-            topProvincesWithDetails: result.topProvincesWithDetails 
-        });
+    fetchRawData(async (error, results) => {
+        if (error || !results) return res.status(500).json({ success: false });
+        try {
+            const result = await provinceService.getCustomAdvice(results, req.body); 
+            res.status(200).json({ 
+                success: true, 
+                rankedProvinces: result.rankedResults.map(r => ({ id: r.id, value: r.score })), 
+                topProvincesWithDetails: result.topProvincesWithDetails 
+            });
+        } catch (err) {
+            res.status(400).json({ success: false, message: err.message });
+        }
     });
 };
 
 exports.getReport = (req, res) => {
-    fetchProvinceData((error, provinces) => {
-        if (error || !provinces) return res.status(500).json({ success: false });
-        const result = kdsLogic.calculateThematicReport(provinces, req.params.reportType); 
-        res.json({ success: true, data: result.rankedProvinces });
+    fetchRawData(async (error, results) => {
+        if (error || !results) return res.status(500).json({ success: false });
+        try {
+            const result = await provinceService.getThematicReport(results, req.params.reportType); 
+            res.status(200).json({ success: true, data: result.rankedProvinces });
+        } catch (err) {
+            res.status(400).json({ success: false, message: err.message });
+        }
     });
 };
 
@@ -238,62 +199,109 @@ exports.getCityAnalysis = (req, res) => {
 
     db.promise().query(q1, [cityName]).then(([r1]) => {
         return db.promise().query(q2, [cityName, cityName]).then(([r2]) => {
-            if(!r1[0]) return res.json({ success: false, message: "İl bulunamadı." });
+            if(!r1[0]) return res.status(404).json({ success: false, message: "İl bulunamadı." });
             const data = r1[0];
             data.cazibe_yorumu = data.genel_cazibe_puani >= 75 ? "Stratejik Yatırım Bölgesi" : (data.genel_cazibe_puani >= 50 ? "Yükselen Ekonomik Merkez" : "Gelişim Potansiyeli");
-            res.json({ success: true, data, trendData: r2 });
+            res.status(200).json({ success: true, data, trendData: r2 });
         });
-    }).catch(err => res.json({ success: false, message: err.message }));
+    }).catch(err => res.status(500).json({ success: false, message: err.message }));
 };
 
-// === GÜNCELLENMİŞ STRATEJİK ÖZET VERİLERİ ===
 exports.getSummaryData = (req, res) => {
     getDynamicWeights(weights => {
-        fetchProvinceData((error, provinces) => {
-            if (error || !provinces) return res.status(500).json({ success: false, message: 'Özet verileri çekilemedi.' });
-
-            const thematicResult = kdsLogic.calculateSmartScoreAndComment(provinces, weights, 'genel_cazibe');
+        fetchRawData(async (error, results) => {
+            if (error || !results) return res.status(500).json({ success: false, message: 'Özet verileri çekilemedi.' });
             
-            // Efendim, rankedList artık 0-100 ölçeğinde puanlar içeriyor
-            const rankedList = thematicResult.rankedProvinces.map(rp => {
-                const p = provinces.find(prov => prov.id === rp.id);
-                return {
-                    ad: p.ad,
-                    nufus: p.demografi.toplam_nufus,
-                    score: rp.value 
-                };
-            }).sort((a, b) => b.score - a.score);
+            try {
+                const analysis = await provinceService.getSmartAnalysis(results, weights);
+                const provinces = provinceService.formatProvinces(results);
 
-            const top5 = rankedList.slice(0, 5);
+                const rankedList = analysis.rankedProvinces.map(rp => {
+                    const p = provinces.find(prov => prov.id === rp.id);
+                    return {
+                        ad: p.ad,
+                        nufus: p.demografi.toplam_nufus,
+                        score: rp.value 
+                    };
+                }).sort((a, b) => b.score - a.score);
 
-            const sqlTrend = "SELECT yil, SUM(ihracat_hacmi_milyon_usd) as toplam_ihracat FROM iller_gecmis GROUP BY yil ORDER BY yil ASC";
-            db.query(sqlTrend, (err, trendResults) => {
-                const timelineSummary = trendResults || [];
-                const topCity = top5[0].ad;
-                const totalAvg = thematicResult.rankedProvinces.reduce((a, b) => a + b.value, 0) / provinces.length;
-                
-                let smartNote = `Efendim, sistem analizine göre mevcut kriterler ışığında **${topCity}** ili yatırım cazibesi bakımından lider konumdadır. `;
-                smartNote += `Türkiye genel ortalaması **${totalAvg.toFixed(2)}** puan seviyesindedir. `;
-                
-                if (timelineSummary.length > 1) {
-                    const lastYear = timelineSummary[timelineSummary.length - 1].toplam_ihracat;
-                    const prevYear = timelineSummary[timelineSummary.length - 2].toplam_ihracat;
-                    const diff = ((lastYear - prevYear) / prevYear * 100).toFixed(1);
-                    smartNote += `Ulusal ihracat hacminde son dönemde %${diff > 0 ? '+' : ''}${diff} oranında bir hareketlilik gözlemlenmektedir.`;
-                }
+                const top5 = rankedList.slice(0, 5);
 
-                res.json({
-                    success: true,
-                    summary: {
-                        topCity: topCity,
-                        avgScore: parseFloat(totalAvg.toFixed(2)),
-                        top5: top5,
-                        fullList: rankedList,
-                        timeline: timelineSummary,
-                        insight: smartNote
+                const sqlTrend = "SELECT yil, SUM(ihracat_hacmi_milyon_usd) as toplam_ihracat FROM iller_gecmis GROUP BY yil ORDER BY yil ASC";
+                db.query(sqlTrend, (err, trendResults) => {
+                    const timelineSummary = trendResults || [];
+                    const topCity = top5[0].ad;
+                    const totalAvg = analysis.rankedProvinces.reduce((a, b) => a + b.value, 0) / provinces.length;
+                    
+                    let smartNote = `Efendim, sistem analizine göre mevcut kriterler ışığında **${topCity}** ili yatırım cazibesi bakımından lider konumdadır. `;
+                    smartNote += `Türkiye genel ortalaması **${totalAvg.toFixed(2)}** puan seviyesindedir. `;
+                    
+                    if (timelineSummary.length > 1) {
+                        const lastYear = timelineSummary[timelineSummary.length - 1].toplam_ihracat;
+                        const prevYear = timelineSummary[timelineSummary.length - 2].toplam_ihracat;
+                        const diff = ((lastYear - prevYear) / prevYear * 100).toFixed(1);
+                        smartNote += `Ulusal ihracat hacminde son dönemde %${diff > 0 ? '+' : ''}${diff} oranında bir hareketlilik gözlemlenmektedir.`;
                     }
+
+                    res.status(200).json({
+                        success: true,
+                        summary: {
+                            topCity: topCity,
+                            avgScore: parseFloat(totalAvg.toFixed(2)),
+                            top5: top5,
+                            fullList: rankedList,
+                            timeline: timelineSummary,
+                            insight: smartNote
+                        }
+                    });
                 });
-            });
+            } catch (err) {
+                res.status(500).json({ success: false, message: err.message });
+            }
         });
     });
+};
+
+// --- ANALİZ YÖNETİMİ (CRUD) ENDPOINTLERİ ---
+
+// [GET] 
+exports.listAnalizler = (req, res) => {
+    const data = provinceService.getAllAnalizler();
+    res.status(200).json({ success: true, count: data.length, data: data });
+};
+
+// [POST] 
+exports.saveAnaliz = (req, res) => {
+    try {
+        const yeni = provinceService.createAnaliz(req.body);
+        // 201: Created - REST standartlarında yeni kayıt oluşturma kodu
+        res.status(201).json({ success: true, message: "Efendim, analiz başarıyla kaydedildi.", data: yeni });
+    } catch (err) {
+        res.status(400).json({ success: false, message: err.message });
+    }
+};
+
+// [PATCH] 
+exports.patchAnaliz = (req, res) => {
+    const success = provinceService.updateAnalizStatus(req.params.id, req.body.status);
+    if (success) {
+        res.status(200).json({ success: true, data: success });
+    } else {
+        res.status(404).json({ success: false, message: "Güncellenecek analiz bulunamadı." });
+    }
+};
+
+// [DELETE] 
+exports.removeAnaliz = (req, res) => {
+    try {
+        const success = provinceService.deleteAnaliz(req.params.id);
+        if (success) {
+            res.status(200).json({ success: true, message: "Analiz başarıyla silindi." });
+        } else {
+            res.status(404).json({ success: false, message: "Silinecek analiz bulunamadı." });
+        }
+    } catch (err) {
+        // error mesajı
+        res.status(400).json({ success: false, message: err.message });
+    }
 };

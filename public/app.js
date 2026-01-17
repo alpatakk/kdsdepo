@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mapView = document.getElementById('map-view');
     const chartsView = document.getElementById('charts-view');
     
-    // === YENİ: GENEL ÖZET VIEW ELEMENTLERİ (EKLEME) ===
+    // ===  GENEL ÖZET VIEW ELEMENTLERİ (EKLEME) ===
     const showSummaryViewBtn = document.getElementById('show-summary-view-btn');
     const summaryView = document.getElementById('summary-view');
 
@@ -38,22 +38,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveCriteriaBtn = document.getElementById('save-criteria-btn');
     const criteriaSaveMessage = document.getElementById('criteria-save-message');
     
-    // YENİ EKLENEN: SİMÜLASYON ELEMENTLERİ (Kritter view içinde)
+    //  SİMÜLASYON ELEMENTLERİ (Kritter view içinde)
     const smartSimForm = document.getElementById('smart-sim-form');
     const smartResultsDiv = document.getElementById('smart-recommendation-results');
 
-    // --- YENİ EKLENEN: BENTO GRID (ANALIZ) ELEMENTLERİ ---
+    // ---  BENTO GRID (ANALIZ) ELEMENTLERİ ---
     const showAnalysisViewBtn = document.getElementById('show-analysis-view-btn');
     const analysisView = document.getElementById('analysis-view');
     let cityTrendChartInstance = null;
     let currentAnalysisTrendData = []; // Veriyi hafızada saklamak için yeni eklendi
 
-    // --- YENİ EKLENEN: ZAMAN TÜNELİ (KRONOLOJİ) ELEMENTLERİ ---
+    // ---  ZAMAN TÜNELİ (KRONOLOJİ) ELEMENTLERİ ---
     const showTimelineViewBtn = document.getElementById('show-timeline-view-btn');
     const timelineView = document.getElementById('timeline-view');
     const timelineListContainer = document.getElementById('timeline-list');
 
-    // === YENİ: SIDEBAR GRAFİK INSTANCE'LARI (EKLEME) ===
+    // ===  SIDEBAR GRAFİK INSTANCE'LARI (EKLEME) ===
     let sidebarDonutInstance = null;
     let sidebarCazibeInstance = null;
     let sidebarTrendInstance = null;
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
         criteriaView.classList.remove('active'); 
         analysisView.classList.remove('active'); 
         timelineView.classList.remove('active'); 
-        if(summaryView) summaryView.classList.remove('active'); // === YENİ EKLEME ===
+        if(summaryView) summaryView.classList.remove('active'); 
 
         menuButtons.forEach(btn => btn.classList.remove('active'));
 
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
         criteriaView.style.display = 'none';
         analysisView.style.display = 'none'; 
         timelineView.style.display = 'none'; 
-        if(summaryView) summaryView.style.display = 'none'; // === YENİ EKLEME ===
+        if(summaryView) summaryView.style.display = 'none'; 
         
         const viewToShow = document.getElementById(viewIdToShow);
         if (viewToShow) {
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (viewIdToShow === 'timeline-view') {
             fetchTimelineData(); 
         } else if (viewIdToShow === 'summary-view') {
-            initSidebarSummary(); // === YENİ EKLEME: View açıldığında verileri yükle ===
+            initSidebarSummary(); // === View açıldığında verileri yükle ===
         }
     }
 
